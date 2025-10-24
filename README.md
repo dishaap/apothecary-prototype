@@ -7,7 +7,7 @@ This project is for the Unity Project of the as-yet unnamed Apothecary game that
 The project follows <a href="https://unity.com/how-to/organizing-your-project">Unity conventions for organizing projects</a>, which is a derivation of C# project organization conventions. In short this means that:
 <ul>
   <li>All Unity assets must go in the <code>Assets</code> folder, and every asset is further classified into subfolders by type, location used, subtype in that order. (eg: if a background music for a kitchen scene needs to be stored, it would be under <code>Assets > Audio > Kitchen > Background</code>.)</li>
-  <li>All names are written in CamelCase. If the name needs to specify a certain classification that distinguishes the asset from other assets of the same subtype, separate that classifier with an underscore. (eg: if the background music is classical, it can be named <code>BackgroundMusic_Classical.</code>)</li>
+  <li>All names are written in CamelCase. If the name needs to specify a certain classification that distinguishes the asset from other assets of the same subtype, separate that classifier with an underscore. (eg: if the background music is classical, it can be named <code>BackgroundMusic_Classical</code>.)</li>
   <li>Any file that is not required for Unity but is needed in the repository should be a file or folder at the same level as the Unity project <code>SomeMagicalFairyApothecary</code> and should not be added within that folder. All files within the Unity project must be utilized for running it.</li>
   <li>Within Scenes, all GameObjects must be organized hierarchically, with collections of similar objects having a parent GameObject for better organization and handling. (eg: all collectible items should be under parent GameObject <code>Collectibles</code>.)</li>
 </ul>
@@ -45,3 +45,12 @@ git lfs track "*.type"</pre>
 
 The file name or type should be added to <code>.gitattributes</code>
 
+<h2>Repository Organization</h2>
+
+To avoid as many merge conflicts as possible, for development, branches are created from main per feature developed. 
+
+For example, if the home screen feature is under development, all commits related to it would be under the branch <code>home-screen</code>, until development of the feature is finished, and the branch can be merged. If there is a sub-feature to be added specifically for the home screen, it can be developed on a sub-branch <code>home-screen--\<sub-feature-name\></code> and merged into <code>home-screen</code>. 
+
+The feature branch development method helps encapsulate the project most efficiently and is a derivative of <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">industry standard version control</a>. The feature branches are owned by the user who created them but can be checked out by any other user, without loss of progress on their own branches and minimal code conflicts.
+
+Once development on a feature is complete, a Pull Request can be filed for review by another team member before merging into main. Once the PR is accepted, the feature will be added to the main workflow of the project. The feature branch can then be closed to avoid clogging the workflow of the repository with dead branches.
