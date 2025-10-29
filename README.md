@@ -45,6 +45,19 @@ git lfs track "*.type"</pre>
 
 The file name or type should be added to <code>.gitattributes</code>
 
+<h3>Backup for Unity Project</h3>
+
+To ensure that no progress is lost, backups can be created via Unity. Backups on the <code>main</code> branch will be created periodically after major PRs have been merged, and backups on other branches can be created as needed.
+
+To create a backup unity project:
+<ul>
+  <li>After all Scene progress is saved, right-click on <code>Assets</code> folder in the Project window (folder view of project).</li>
+  <li>Click on <b>Export Package</b> option, then click Export.</li>
+  <li>Save the <code>.unitypackage</code> file under the Backups folder in the main repository folder with your name, branch the version is under and version number. For example, <code>Disha_Main_01.unitypackage</code></li>
+</ul>
+
+To recover the backed up versions, you can delete the <code>Assets</code> folder in the project in your local repository, double click on the backup file and import the new version of the assets into the project. 
+
 <h2>Repository Organization</h2>
 
 To avoid as many merge conflicts as possible, for development, branches are created from main per feature developed. 
