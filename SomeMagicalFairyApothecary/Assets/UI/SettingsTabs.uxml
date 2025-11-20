@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Tab label="Controls" name="Controls" closeable="false" view-data-key="ControlsTab" />
+    <ui:TabView view-data-key="TabbedMenu" reorderable="true" />
+    <ui:Tab label="Sound" name="Sound" view-data-key="SoundTab" />
+    <ui:Tab label="Display&#10;" name="Display" view-data-key="DisplayTab" />
+</ui:UXML>
