@@ -1,6 +1,23 @@
 <h1>Documentation & Troubleshooting</h1>
 
-This project is for the Unity Project of the as-yet unnamed Apothecary game that we are prototyping. It stores Unity assets, packages and documentation required for version control. 
+This project is for the Unity Project of our prototype game, Fairy Haven that we are prototyping. It stores Unity assets, packages and documentation required for version control. 
+
+A brief vision statement for the game:
+
+<blockquote>Fairy Haven is a cozy, stylized 3D life-sim where you play as a fairy living in a magical village nestled within the roots of an ancient oak tree. With a focus on creativity, connection, and daily ritual, players immerse themselves in a whimsical world designed for relaxation, expression, and magical living.</blockquote>
+
+We intend to pre-release a 'Companion Game' that will act as a productivity tool/desktop companion and act as a preview for the art style and game design that can be expected for the full release. Upon release and reception, we will prepare to release the full Fairy Haven game. 
+
+<h3>Companion Game (Pre-Release)</h3>
+
+The Companion Game will have the following productivity features: 
+- Pomodoro Timer (Complete)
+- To-Do List (Complete)
+- Journal/Notes
+- Mood Tracker
+- Calendar for Journal and Mood Tracker
+
+TBD: Full Scene and Asset List for Companion Game
 
 <h2>File Tree & Organization</h2>
 
@@ -18,7 +35,16 @@ This is the current hierarchy of the project, representing only the first four l
   +-- apothecary-prototype (Repository)
   |  +-- SomeMagicalFairyApothecary (Unity Project)
   |  |  +-- Assets (All assets to be used in compiling Unity Project)
+  |  |  |   +-- Imported (External packages)
+  |  |  |   +-- Prefabs (Templates for GameObjects)
+  |  |  |   +-- Scenes (All Scenes within Game - WIP: Organize by game structure)
+  |  |  |   +-- Scripts (All .cs Scripts)
+  |  |  |   +-- Settings (Internal Scene settings)
+  |  |  |   +-- TextMeshPro (Text rendering Assets)
+  |  |  |   +-- UI Toolkit (Unity 6.0 UI tools)
+  |  |  |   +-- UI (XML settings for UI)
   |  |  +-- Packages (Specs for all packages required to compile project, as .json files)
+  |  |  +-- UIElementsSchema (Unity Assets for non-default UI views)
   |  |  +-- ProjectSettings (Configurations for running the Unity project and managing assets, as .asset files)
   |  |  |-- .gitattributes (Configurations for the git project)
   |  |  |-- .gitignore
