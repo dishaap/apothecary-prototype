@@ -8,15 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ApothecaryScene.unity
     guid: d29e60053a87450459da69ad094d89d0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ApartmentScene.unity
     guid: 0f0a8a73c0fc44b4e9e85e2d798940da
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StartMenu.unity
     guid: c305104c8669c164d9b859ec9a5e9371
+  - enabled: 1
+    path: Assets/Scenes/CompanionGameScene.unity
+    guid: 835dde466dc44ac43a6731903a532941
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
