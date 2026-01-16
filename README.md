@@ -84,6 +84,22 @@ To create a backup unity project:
 
 To recover the backed up versions, you can delete the <code>Assets</code> folder in the project in your local repository, double click on the backup file and import the new version of the assets into the project. 
 
+<h3>Exporting Game to Windows for Testing</h3>
+
+<h4>Companion Game</h4>
+
+To deploy the companion game follow these steps:
+- With the project open, in the Navigation Bar in your Unity Window, navigate to **File > Build Settings**.
+- In the **Add Scenes** window, add the following Scene: CompanionGameScene
+- Make sure _no other scene is selected_.
+- Select platform as **PC, Mac and Linux Standalone**.
+- Configure **Target Platform** to be **Windows**. _This is the default setting._
+- For testing, ignore the Player settings (this is relevant for the final version only)
+- Click the **Build** button and select a suitable location on your local drive.
+- Once the build is complete, the folder will contain the .exe file (the game executable) and a [YourGameName]_Data folder. Click on the .exe file to run it.
+
+<blockquote><b>Important Note:</b> To run the game on Windows, you need both the .exe file and the accompanying Data folder. </blockquote>
+
 <h2>Repository Organization</h2>
 
 To avoid as many merge conflicts as possible, for development, branches are created from main per feature developed. 
