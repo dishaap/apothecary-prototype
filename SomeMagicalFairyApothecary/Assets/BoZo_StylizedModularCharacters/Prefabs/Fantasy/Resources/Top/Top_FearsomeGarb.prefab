@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7879117525213035434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6861665060682691521}
+  - component: {fileID: 3583417027082259130}
+  m_Layer: 0
+  m_Name: Top_FearsomeGarb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6861665060682691521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879117525213035434}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8622187058715469734}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3583417027082259130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879117525213035434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56222aeebf4898a41b83761b0e03c752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customShader: 0
+  AttachInEditMode: 0
+  OutfitName: Steel Armor
+  OutfitIcon: {fileID: 21300000, guid: b443491b53c3ca74b96e412943cb47f2, type: 3}
+  ColorChannels:
+  - Base
+  - Belt Hem
+  - Stiches
+  - Straps
+  - Buckles
+  - Fur
+  - Belt
+  TextureCatagory: 
+  supportDecals: 0
+  supportPatterns: 0
+  showCharacterCreator: 1
+  Type: {fileID: 11400000, guid: 6708e088db9d4b14caa291b19c953b71, type: 2}
+  AttachPoint: 
+  defaultColors: []
+  tags: []
+  optionalPieces:
+  - {fileID: 3563546997051972725}
+  - {fileID: 739812226699290202}
+  - {fileID: 8040117898001621259}
+  - {fileID: 6035642217501464872}
+  additionalBones: []
+  LinkedColorSets: []
+  IncompatibleSets: []
+  HideTypes: []
+  currentSwatch: 0
+  outfitSwatches: []
+  originalBones: []
+  originalRootBone: {fileID: 0}
+  editorAttachPoint: {fileID: 0}
+--- !u!1001 &8080179079498285133
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6861665060682691521}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+      propertyPath: m_Name
+      value: Top_FearsomeGarb
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+--- !u!1 &739812226699290202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8819956010961544727, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+  m_PrefabInstance: {fileID: 8080179079498285133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3563546997051972725 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4708182538629717048, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+  m_PrefabInstance: {fileID: 8080179079498285133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6035642217501464872 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6638173283515672219, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+  m_PrefabInstance: {fileID: 8080179079498285133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8040117898001621259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2285203727846236486, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+  m_PrefabInstance: {fileID: 8080179079498285133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8622187058715469734 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cc28a1afe013f5c4ab7600576d60a73c, type: 3}
+  m_PrefabInstance: {fileID: 8080179079498285133}
+  m_PrefabAsset: {fileID: 0}

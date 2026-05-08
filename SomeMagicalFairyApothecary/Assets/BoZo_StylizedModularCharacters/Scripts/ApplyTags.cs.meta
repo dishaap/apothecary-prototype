@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 8e4bba4ee6b730d4a91231db11404cca
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 361388
+  packageName: 'BoZo: Stylized Modular Characters - Fantasy Pack'
+  packageVersion: 2.3.3.1
+  assetPath: Assets/BoZo_StylizedModularCharacters/Scripts/ApplyTags.cs
+  uploadId: 884304
