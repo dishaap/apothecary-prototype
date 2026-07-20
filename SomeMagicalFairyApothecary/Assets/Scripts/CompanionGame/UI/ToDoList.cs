@@ -56,8 +56,6 @@ public class ToDoList : MonoBehaviour
 
         if (label != null) label.text = text;
 
-        Debug.Log(t.labe)
-
         // Register in incomplete list + put it just above completed section
         incomplete.Add(t);
 
