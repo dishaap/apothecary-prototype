@@ -1,0 +1,43 @@
+/* IconButton — base styling + interaction states only.
+   Concrete icons and screen-specific colours are applied via modifier
+   classes in the consuming screen's stylesheet. */
+
+.icon-btn {
+    width: var(--mp-icon-size);
+    height: var(--mp-icon-size);
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    margin-left: var(--spacing-sm);
+    margin-right: var(--spacing-sm);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    border-radius: var(--radius-pill);
+    align-items: center;
+    justify-content: center;
+    transition: scale 0.12s ease-out 0s;
+}
+
+.icon-btn__glyph {
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    transition: scale 0.12s ease-out 0s;
+}
+
+/* Hover / press feedback lives entirely in USS (no C# lerps). */
+.icon-btn:hover {
+    scale: 1.12 1.12;
+}
+
+.icon-btn:active {
+    scale: 0.92 0.92;
+}
+
+.icon-btn:focus {
+    background-color: rgba(111, 143, 63, 0.18);
+}
+
+.icon-btn:disabled {
+    opacity: 0.4;
+}

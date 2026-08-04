@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="IconButton" src="project://database/Assets/UI/Components/IconButton.uxml?fileID=9197481963319205126&amp;guid=84a2d624072e94d4586b3a63a129b7c1&amp;type=3#IconButton"/>
+    <Style src="project://database/Assets/UI/GlobalStyles/Global.uss?fileID=7433441132597879392&amp;guid=6633a71054970e44f9125ff5c9f65a99&amp;type=3#Global"/>
+    <Style src="project://database/Assets/UI/Components/IconButton.uss?fileID=7433441132597879392&amp;guid=840f09bb9e0f27747adba63e7c653662&amp;type=3"/>
+    <Style src="project://database/Assets/UI/Screens/MusicPlayer/MusicPlayerScreen.uss?fileID=7433441132597879392&amp;guid=498ad97d39289644d9d7f9149ef8d26f&amp;type=3#MusicPlayerScreen"/>
+    <ui:VisualElement name="music-player-root" class="music-player" style="padding-bottom: 5px;">
+        <ui:VisualElement name="music-player-bar" class="music-player__bar">
+            <ui:VisualElement class="music-player__group music-player__group--left" style="flex-shrink: 1;">
+                <ui:VisualElement name="mp-art" class="music-player__art">
+                    <ui:VisualElement picking-mode="Ignore" class="music-player__art-glyph"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="music-player__meta" style="padding-top: 20px; padding-bottom: 20px; height: 100%;">
+                    <ui:Label name="mp-title" text="Fireflies" class="music-player__title"/>
+                    <ui:Label name="mp-artist" text="Ron Lopata" class="music-player__artist"/>
+                    <ui:Label name="mp-album" text="Mystical Forest" class="music-player__album"/>
+                </ui:VisualElement>
+                <ui:Instance template="IconButton" name="btn-favorite" class="icon-btn--heart"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="music-player__group music-player__group--center" style="flex-grow: 2; flex-shrink: 0;">
+                <ui:Instance template="IconButton" name="btn-shuffle" class="icon-btn--shuffle"/>
+                <ui:Instance template="IconButton" name="btn-prev" class="icon-btn--prev"/>
+                <ui:Instance template="IconButton" name="btn-play" class="icon-btn--play"/>
+                <ui:Instance template="IconButton" name="btn-next" class="icon-btn--next"/>
+                <ui:Instance template="IconButton" name="btn-repeat" class="icon-btn--repeat"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="music-player__group music-player__group--right">
+                <ui:Instance template="IconButton" name="btn-volume" class="icon-btn--sound"/>
+                <ui:Slider name="mp-volume" low-value="0" high-value="1" value="0.7" direction="Horizontal" class="music-player__volume-slider" style="align-items: center; align-self: center; align-content: center;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
