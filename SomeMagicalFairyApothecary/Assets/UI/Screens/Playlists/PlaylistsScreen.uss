@@ -23,12 +23,21 @@
 .playlists__card {
     margin-left: var(--playlists-card-gap);
     margin-right: var(--playlists-card-gap);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
     flex-grow: 0;
     flex-shrink: 0;
 }
 
 .playlists__card--first {
     margin-left: 0;
+}
+
+/* The Favourites tile is auto-populated from the player's favourited tracks, so
+   it carries a heart glyph instead of the default music notes. */
+.playlists__card--favorites .playlist-card__glyph {
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Icons/Icon_Heart.svg?fileID=7388822144124034973&guid=abc26e33b221d8249a8a0f7416902cfc&type=3#Icon_Heart");
+    -unity-background-image-tint-color: var(--color-favorite);
 }
 
 .playlists__divider {

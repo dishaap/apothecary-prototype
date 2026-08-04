@@ -11,6 +11,9 @@ using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(1000)]
 public class UIManager : MonoBehaviour
 {
+    /// <summary>Grid index of the auto-populated Favourites playlist (always shown first).</summary>
+    private const int FavoritesPlaylistIndex = 0;
+
     public GameObject optionsMenu;
     public GameObject sceneMenu;
 
@@ -22,6 +25,9 @@ public class UIManager : MonoBehaviour
     [Tooltip("Audio model that owns the tracks and the shared favourite state.")]
     [SerializeField] private MusicPlayerService musicPlayerService;
 
+    [Tooltip("Name of the auto-populated favourites playlist shown first in the library.")]
+    [SerializeField] private string favoritesPlaylistName = "Favourites";
+
     [Tooltip("Playlist names shown in the playlists modal (display data).")]
     [SerializeField]
     private string[] playlistNames =
@@ -31,6 +37,14 @@ public class UIManager : MonoBehaviour
         "Wisteria",
         "A Cottage Morning"
     };
+
+    // Display names for every tile, index-aligned with the playlists grid. The
+    // Favourites playlist occupies index 0; the serialized names follow.
+    private readonly List<string> _playlistDisplayNames = new List<string>();
+
+    // Grid index of the playlist currently shown in the track list, or -1 when the
+    // track list is closed. Used to rebuild Favourites live as favourites change.
+    private int _openPlaylistIndex = -1;
 
     private void OnEnable()
     {
@@ -92,8 +106,13 @@ public class UIManager : MonoBehaviour
     {
         if (playlistsScreen != null)
         {
-            var infos = new List<PlaylistInfo>(playlistNames.Length);
-            foreach (string name in playlistNames)
+            // Favourites is always the first tile, followed by the authored playlists.
+            _playlistDisplayNames.Clear();
+            _playlistDisplayNames.Add(favoritesPlaylistName);
+            _playlistDisplayNames.AddRange(playlistNames);
+
+            var infos = new List<PlaylistInfo>(_playlistDisplayNames.Count);
+            foreach (string name in _playlistDisplayNames)
             {
                 infos.Add(new PlaylistInfo(name));
             }
@@ -139,11 +158,13 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        string playlistName = playlistIndex >= 0 && playlistIndex < playlistNames.Length
-            ? playlistNames[playlistIndex]
+        _openPlaylistIndex = playlistIndex;
+
+        string playlistName = playlistIndex >= 0 && playlistIndex < _playlistDisplayNames.Count
+            ? _playlistDisplayNames[playlistIndex]
             : "Playlist";
 
-        trackListScreen.SetTracks(playlistName, BuildTrackRows());
+        trackListScreen.SetTracks(playlistName, BuildTrackRows(playlistIndex));
 
         if (musicPlayerService != null)
         {
@@ -161,6 +182,8 @@ public class UIManager : MonoBehaviour
     /// <summary>Closes the whole music panel from the track listing (both the listing and the library).</summary>
     public void CloseTrackList()
     {
+        _openPlaylistIndex = -1;
+
         if (trackListScreen != null)
         {
             trackListScreen.Hide();
@@ -175,6 +198,8 @@ public class UIManager : MonoBehaviour
     /// <summary>Steps back from the track listing to the playlists library.</summary>
     public void GoBackToPlaylists()
     {
+        _openPlaylistIndex = -1;
+
         if (trackListScreen != null)
         {
             trackListScreen.Hide();
@@ -186,8 +211,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    /// <summary>Builds the display rows for the current playlist, seeding favourite state from the service.</summary>
-    private List<TrackRowInfo> BuildTrackRows()
+    /// <summary>
+    /// Builds the display rows for a playlist, seeding favourite state from the
+    /// service. The Favourites playlist is auto-populated: only favourited tracks
+    /// are included. Every row carries its authoritative service track index.
+    /// </summary>
+    private List<TrackRowInfo> BuildTrackRows(int playlistIndex)
     {
         var rows = new List<TrackRowInfo>();
         if (musicPlayerService == null)
@@ -195,10 +224,17 @@ public class UIManager : MonoBehaviour
             return rows;
         }
 
+        bool favoritesOnly = playlistIndex == FavoritesPlaylistIndex;
         IReadOnlyList<MusicTrack> tracks = musicPlayerService.Tracks;
         for (int i = 0; i < tracks.Count; i++)
         {
-            rows.Add(new TrackRowInfo(tracks[i].title, tracks[i].artist, musicPlayerService.IsFavorited(i)));
+            bool isFavorited = musicPlayerService.IsFavorited(i);
+            if (favoritesOnly && !isFavorited)
+            {
+                continue;
+            }
+
+            rows.Add(new TrackRowInfo(i, tracks[i].title, tracks[i].artist, isFavorited));
         }
 
         return rows;
@@ -236,6 +272,18 @@ public class UIManager : MonoBehaviour
     {
         if (musicPlayerService == null || trackListScreen == null)
         {
+            return;
+        }
+
+        // The Favourites playlist's very membership changes with favourites, so when
+        // it is the open playlist rebuild it (deferred, since this can fire from a
+        // heart toggle inside that same list). Other playlists just refresh hearts.
+        if (_openPlaylistIndex == FavoritesPlaylistIndex)
+        {
+            trackListScreen.SetTracksDeferred(
+                _playlistDisplayNames[FavoritesPlaylistIndex],
+                BuildTrackRows(FavoritesPlaylistIndex),
+                musicPlayerService.CurrentTrackIndex);
             return;
         }
 

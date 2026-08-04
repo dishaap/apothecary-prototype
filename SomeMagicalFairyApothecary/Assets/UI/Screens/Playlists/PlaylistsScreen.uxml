@@ -9,16 +9,19 @@
             <ui:Button name="playlists-close" class="scroll-modal__close"/>
             <ui:Label text="Playlists" class="playlists__title"/>
             <ui:VisualElement name="playlists-grid" class="playlists__grid">
-                <ui:Instance name="card-0" template="PlaylistCard" class="playlists__card playlists__card--first">
-                    <ui:AttributeOverrides element-name="playlist-card__label" text="Nightfall"/>
+                <ui:Instance name="card-0" template="PlaylistCard" class="playlists__card playlists__card--first playlists__card--favorites">
+                    <ui:AttributeOverrides element-name="playlist-card__label" text="Favourites"/>
                 </ui:Instance>
                 <ui:Instance name="card-1" template="PlaylistCard" class="playlists__card">
-                    <ui:AttributeOverrides element-name="playlist-card__label" text="Dewdrops"/>
+                    <ui:AttributeOverrides element-name="playlist-card__label" text="Nightfall"/>
                 </ui:Instance>
                 <ui:Instance name="card-2" template="PlaylistCard" class="playlists__card">
-                    <ui:AttributeOverrides element-name="playlist-card__label" text="Wisteria"/>
+                    <ui:AttributeOverrides element-name="playlist-card__label" text="Dewdrops"/>
                 </ui:Instance>
                 <ui:Instance name="card-3" template="PlaylistCard" class="playlists__card">
+                    <ui:AttributeOverrides element-name="playlist-card__label" text="Wisteria"/>
+                </ui:Instance>
+                <ui:Instance name="card-4" template="PlaylistCard" class="playlists__card">
                     <ui:AttributeOverrides element-name="playlist-card__label" text="A Cottage Morning"/>
                 </ui:Instance>
             </ui:VisualElement>

@@ -10,12 +10,17 @@ using UnityEngine.UIElements;
 /// </summary>
 public readonly struct TrackRowInfo
 {
+    /// <summary>Authoritative index of this track in the service's playlist. This
+    /// is the identity used for playback, favourites and now-playing, and differs
+    /// from the row's on-screen position in filtered playlists (e.g. Favourites).</summary>
+    public readonly int TrackIndex;
     public readonly string Title;
     public readonly string Artist;
     public readonly bool Favorited;
 
-    public TrackRowInfo(string title, string artist, bool favorited)
+    public TrackRowInfo(int trackIndex, string title, string artist, bool favorited)
     {
+        TrackIndex = trackIndex;
         Title = title;
         Artist = artist;
         Favorited = favorited;
@@ -50,7 +55,7 @@ public class TrackListScreen : MonoBehaviour, IScreen
     /// <summary>Raised when a row's heart is toggled: the track index and the requested state.</summary>
     public event Action<int, bool> TrackFavoriteToggled;
 
-    /// <summary>Raised when a track row is clicked (outside its heart) to play that track.</summary>
+    /// <summary>Raised when a track row is clicked (outside its heart) to play that track. The argument is the track index.</summary>
     public event Action<int> TrackSelected;
 
     private UIDocument _document;
@@ -63,6 +68,7 @@ public class TrackListScreen : MonoBehaviour, IScreen
     private readonly List<Button> _favButtons = new List<Button>();
     private readonly List<bool> _favStates = new List<bool>();
     private readonly List<VisualElement> _rows = new List<VisualElement>();
+    private readonly List<int> _trackIndices = new List<int>();
 
     private bool _isVisible;
     private bool _isInitialized;
@@ -129,6 +135,7 @@ public class TrackListScreen : MonoBehaviour, IScreen
         _favButtons.Clear();
         _favStates.Clear();
         _rows.Clear();
+        _trackIndices.Clear();
 
         if (tracks == null || trackRowTemplate == null)
         {
@@ -140,6 +147,9 @@ public class TrackListScreen : MonoBehaviour, IScreen
             TemplateContainer row = trackRowTemplate.Instantiate();
             TrackRowInfo info = tracks[i];
 
+            // The visible number is the row's position within this playlist; the
+            // track index is its authoritative position in the service's playlist
+            // (the two differ for filtered playlists such as Favourites).
             row.Q<Label>("track-row__num").text = (i + 1).ToString();
             row.Q<Label>("track-row__title").text = info.Title;
             row.Q<Label>("track-row__artist").text = info.Artist;
@@ -148,9 +158,10 @@ public class TrackListScreen : MonoBehaviour, IScreen
             favButton.EnableInClassList(FavoritedClass, info.Favorited);
 
             VisualElement rowElement = row.Q<VisualElement>(RowName);
-            int index = i;
+            int rowPosition = i;
+            int trackIndex = info.TrackIndex;
 
-            favButton.clicked += () => TrackFavoriteToggled?.Invoke(index, !_favStates[index]);
+            favButton.clicked += () => TrackFavoriteToggled?.Invoke(trackIndex, !_favStates[rowPosition]);
 
             // Clicking the row plays that track; clicks on the heart are excluded
             // so favouriting never doubles as a play request.
@@ -161,22 +172,38 @@ public class TrackListScreen : MonoBehaviour, IScreen
                     return;
                 }
 
-                TrackSelected?.Invoke(index);
+                TrackSelected?.Invoke(trackIndex);
             });
 
             _favButtons.Add(favButton);
             _favStates.Add(info.Favorited);
             _rows.Add(rowElement);
+            _trackIndices.Add(trackIndex);
             _listContainer.Add(row);
         }
     }
 
-    /// <summary>Highlights the row of the currently loaded track and clears the rest.</summary>
-    public void SetNowPlaying(int index)
+    /// <summary>
+    /// Rebuilds the rows on the next layout tick. Use when the rebuild is triggered
+    /// from within a row's own event (e.g. a heart toggle that removes the row from a
+    /// filtered playlist), so the list is not mutated while that event is still being
+    /// dispatched.
+    /// </summary>
+    public void SetTracksDeferred(string playlistName, IReadOnlyList<TrackRowInfo> tracks, int nowPlayingTrackIndex)
+    {
+        _root.schedule.Execute(() =>
+        {
+            SetTracks(playlistName, tracks);
+            SetNowPlaying(nowPlayingTrackIndex);
+        });
+    }
+
+    /// <summary>Highlights the row of the currently loaded track (matched by track index) and clears the rest.</summary>
+    public void SetNowPlaying(int trackIndex)
     {
         for (int i = 0; i < _rows.Count; i++)
         {
-            _rows[i].EnableInClassList(NowPlayingClass, i == index);
+            _rows[i].EnableInClassList(NowPlayingClass, _trackIndices[i] == trackIndex);
         }
     }
 
@@ -196,16 +223,19 @@ public class TrackListScreen : MonoBehaviour, IScreen
         return false;
     }
 
-    /// <summary>Reflects an authoritative favourite state for a single row (kept in sync by the service).</summary>
-    public void SetFavorite(int index, bool favorited)
+    /// <summary>Reflects an authoritative favourite state for a track (matched by track index, kept in sync by the service).</summary>
+    public void SetFavorite(int trackIndex, bool favorited)
     {
-        if (index < 0 || index >= _favButtons.Count)
+        for (int i = 0; i < _trackIndices.Count; i++)
         {
-            return;
-        }
+            if (_trackIndices[i] != trackIndex)
+            {
+                continue;
+            }
 
-        _favStates[index] = favorited;
-        _favButtons[index].EnableInClassList(FavoritedClass, favorited);
+            _favStates[i] = favorited;
+            _favButtons[i].EnableInClassList(FavoritedClass, favorited);
+        }
     }
 
     // ── IScreen ──────────────────────────────────────────────────────────

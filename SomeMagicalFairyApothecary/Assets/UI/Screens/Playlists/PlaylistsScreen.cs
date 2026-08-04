@@ -30,7 +30,7 @@ public class PlaylistsScreen : MonoBehaviour, IScreen
     private const string HiddenClass = "scroll-modal--hidden";
     private const string CardHiddenClass = "playlist-card--hidden";
     private const string CardLabelName = "playlist-card__label";
-    private const int MaxCards = 4;
+    private const int MaxCards = 5;
 
     /// <summary>Raised when the user asks to close the panel (X button or backdrop).</summary>
     public event Action CloseRequested;
