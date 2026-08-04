@@ -1,0 +1,55 @@
+/* PlaylistCard — reusable playlist tile: a parchment thumbnail with a music
+   glyph and a caption below. Concrete label text is supplied per instance
+   (UXML AttributeOverrides) or by the screen controller. Layout/spacing that
+   is specific to a screen is applied by that screen, never here. */
+
+.playlist-card {
+    width: var(--playlists-card-size);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    transition: scale 0.14s ease-out 0s;
+}
+
+.playlist-card:hover {
+    scale: 1.05 1.05;
+}
+
+.playlist-card:active {
+    scale: 0.96 0.96;
+}
+
+.playlist-card:focus {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.playlist-card--hidden {
+    display: none;
+}
+
+.playlist-card__thumb {
+    width: var(--playlists-card-size);
+    height: var(--playlists-card-size);
+    align-items: center;
+    justify-content: center;
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Small%20Containers/Container_Square.svg?fileID=7388822144124034973&guid=0a6b9e2b5eee7d44caf17813d8a8e729&type=3#Container_Square");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.playlist-card__glyph {
+    width: 46%;
+    height: 46%;
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-parchment-ink-muted);
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Icons/Icon_Music_Notes.svg?fileID=7388822144124034973&guid=6ea66abeef20dd14bb0e335581db4efc&type=3#Icon_Music_Notes");
+}
+
+.playlist-card__label {
+    margin-top: var(--spacing-sm);
+    font-size: var(--font-size-md);
+    color: var(--color-parchment-ink);
+    -unity-text-align: middle-center;
+}

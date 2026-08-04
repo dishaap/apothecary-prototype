@@ -22,7 +22,7 @@
     justify-content: flex-start;
     padding-left: var(--mp-bar-pad-x);
     padding-right: var(--mp-bar-pad-x);
-    background-image: url("project://database/Assets/UI/Images/Music%20Player/Panels/MusicPlayerPanel.png?fileID=21300000&guid=cf28a90741a6a9a478b088752e385d23&type=3#MusicPlayerPanel");
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Panels/MusicPlayerPanel_Wide.png?fileID=21300000&guid=e758bc468fde58f45902490dbeb18954&type=3#MusicPlayerPanel_Wide");
     -unity-slice-left: 661;
     -unity-slice-right: 672;
     -unity-slice-top: 140;
@@ -51,6 +51,7 @@
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: flex-end;
+    margin-left: var(--spacing-md);
 }
 
 .music-player__art {
@@ -61,6 +62,15 @@
     margin-right: var(--spacing-md);
     background-image: url("project://database/Assets/UI/Images/Music%20Player/Small%20Containers/Container_Square.svg?fileID=7388822144124034973&guid=0a6b9e2b5eee7d44caf17813d8a8e729&type=3#Container_Square");
     -unity-background-scale-mode: scale-to-fit;
+    transition: scale 0.12s ease-out 0s;
+}
+
+.music-player__art:hover {
+    scale: 1.06 1.06;
+}
+
+.music-player__art:active {
+    scale: 0.94 0.94;
 }
 
 .music-player__art-glyph {
@@ -73,8 +83,7 @@
 .music-player__meta {
     flex-direction: column;
     justify-content: center;
-    min-width: 150px;
-    margin-right: var(--spacing-md);
+    margin-right: var(--spacing-sm);
 }
 
 .music-player__title {
@@ -93,7 +102,13 @@
     color: var(--color-parchment-ink-muted);
 }
 
+.icon-btn--heart .icon-btn {
+    margin-right: var(--spacing-xl);
+}
+
 .icon-btn--heart .icon-btn__glyph {
+    width: 48%;
+    height: 48%;
     background-image: url("project://database/Assets/UI/Images/Music%20Player/Icons/Icon_Heart.svg?fileID=7388822144124034973&guid=abc26e33b221d8249a8a0f7416902cfc&type=3#Icon_Heart");
 }
 
@@ -145,7 +160,7 @@
 }
 
 .music-player__volume-slider {
-    width: 100px;
+    width: 70px;
     height: var(--mp-icon-size);
     margin-left: var(--spacing-sm);
     justify-content: center;

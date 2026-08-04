@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="TodoItem" src="/Assets/UI/Components/TodoItem.uxml"/>
+    <Style src="/Assets/UI/GlobalStyles/Global.uss"/>
+    <Style src="/Assets/UI/Components/TodoItem.uss"/>
+    <Style src="/Assets/UI/Screens/Todo/TodoListScreen.uss"/>
+    <ui:VisualElement name="todo-root" class="scroll-modal scroll-modal--hidden">
+        <ui:VisualElement name="todo-panel" class="scroll-modal__panel">
+            <ui:VisualElement name="todo-wings" class="scroll-modal__wings" picking-mode="Ignore"/>
+            <ui:Button name="todo-close" class="scroll-modal__close"/>
+            <ui:Label name="todo-title" text="To-Do List" class="todo__title"/>
+            <ui:VisualElement name="todo-rule" class="todo__rule" picking-mode="Ignore"/>
+            <ui:ScrollView name="todo-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" class="todo__scroll">
+                <ui:VisualElement name="todo-list" class="todo__list">
+                    <ui:Instance template="TodoItem">
+                        <ui:AttributeOverrides element-name="todo-item__label" text="Gather moonpetals at dawn"/>
+                    </ui:Instance>
+                    <ui:Instance template="TodoItem">
+                        <ui:AttributeOverrides element-name="todo-item__label" text="Brew a calming lavender tonic"/>
+                    </ui:Instance>
+                    <ui:Instance template="TodoItem">
+                        <ui:AttributeOverrides element-name="todo-item__label" text="Restock the dried mushroom shelf"/>
+                    </ui:Instance>
+                </ui:VisualElement>
+            </ui:ScrollView>
+            <ui:VisualElement name="todo-add" class="todo__add">
+                <ui:TextField name="todo-add-field" placeholder-text="Add a new task..." class="todo__add-field"/>
+                <ui:Button name="todo-add-btn" text="+" class="todo__add-btn"/>
+            </ui:VisualElement>
+            <ui:Label name="todo-progress" text="0 / 0 done" class="todo__progress"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

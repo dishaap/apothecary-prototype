@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <!-- Reusable to-do row: a parchment container holding a toggle area (checkbox
+         + task label) and a separate delete button. Splitting the two into
+         distinct buttons keeps completing a task and deleting it from colliding.
+         The controller sets the label text, toggles the done modifier on the row
+         container per instance and wires each button's click. Concrete styling
+         comes from TodoItem.uss, referenced by the consuming screen. -->
+    <ui:VisualElement name="todo-item" class="todo-item">
+        <ui:Button name="todo-item__toggle" class="todo-item__toggle">
+            <ui:VisualElement name="todo-item__box" class="todo-item__box" picking-mode="Ignore"/>
+            <ui:Label name="todo-item__label" text="Gather moonpetals at dawn" class="todo-item__label" picking-mode="Ignore"/>
+        </ui:Button>
+        <ui:Button name="todo-item__delete" text="✕" class="todo-item__delete"/>
+    </ui:VisualElement>
+</ui:UXML>

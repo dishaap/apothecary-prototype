@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="TrackRow" src="project://database/Assets/UI/Components/TrackRow.uxml?fileID=9197481963319205126&amp;guid=1c82f59647523104ebb56a8b7cb6476f&amp;type=3#TrackRow"/>
+    <Style src="project://database/Assets/UI/GlobalStyles/Global.uss?fileID=7433441132597879392&amp;guid=6633a71054970e44f9125ff5c9f65a99&amp;type=3#Global"/>
+    <Style src="project://database/Assets/UI/Components/IconButton.uss?fileID=7433441132597879392&amp;guid=840f09bb9e0f27747adba63e7c653662&amp;type=3#IconButton"/>
+    <Style src="project://database/Assets/UI/Components/TrackRow.uss?fileID=7433441132597879392&amp;guid=42410b3347bacd94aa70cc9bc1a9268f&amp;type=3#TrackRow"/>
+    <Style src="project://database/Assets/UI/Screens/Playlists/TrackListScreen.uss?fileID=7433441132597879392&amp;guid=2b0bbd71c413efa47bba6789efbd4863&amp;type=3#TrackListScreen"/>
+    <ui:VisualElement name="tracklist-root" class="scroll-modal scroll-modal--hidden">
+        <ui:VisualElement name="tracklist-panel" class="scroll-modal__panel">
+            <ui:VisualElement name="tracklist-wings" class="scroll-modal__wings" picking-mode="Ignore"/>
+            <ui:Button name="tracklist-back" text="‹ Back" class="tracklist__back"/>
+            <ui:Button name="tracklist-close" class="scroll-modal__close"/>
+            <ui:Label name="tracklist-title" text="Nightfall" class="tracklist__title"/>
+            <ui:VisualElement name="tracklist-header" class="tracklist__header" picking-mode="Ignore">
+                <ui:Label text="#" class="tracklist__header-num"/>
+                <ui:Label text="Title" class="tracklist__header-title"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="tracklist-rule" class="tracklist__rule" picking-mode="Ignore"/>
+            <ui:ScrollView name="tracklist-scroll" mode="Vertical" class="tracklist__scroll">
+                <ui:VisualElement name="track-list" class="tracklist__list">
+                    <ui:Instance template="TrackRow">
+                        <ui:AttributeOverrides element-name="track-row__num" text="1"/>
+                        <ui:AttributeOverrides element-name="track-row__title" text="Moonpetal"/>
+                        <ui:AttributeOverrides element-name="track-row__artist" text="Ron Lopata"/>
+                    </ui:Instance>
+                    <ui:Instance template="TrackRow">
+                        <ui:AttributeOverrides element-name="track-row__num" text="2"/>
+                        <ui:AttributeOverrides element-name="track-row__title" text="Moonpetal"/>
+                        <ui:AttributeOverrides element-name="track-row__artist" text="Ron Lopata"/>
+                    </ui:Instance>
+                    <ui:Instance template="TrackRow">
+                        <ui:AttributeOverrides element-name="track-row__num" text="3"/>
+                        <ui:AttributeOverrides element-name="track-row__title" text="Moonpetal"/>
+                        <ui:AttributeOverrides element-name="track-row__artist" text="Ron Lopata"/>
+                    </ui:Instance>
+                </ui:VisualElement>
+            </ui:ScrollView>
+            <ui:VisualElement name="tracklist-flourish" class="tracklist__flourish" picking-mode="Ignore"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -38,6 +38,65 @@ public class MusicPlayerService : MonoBehaviour
     private bool _isShuffleOn;
     private bool _isRepeatOn;
 
+    /// <summary>
+    /// Raised whenever the favourited set changes, so any UI showing favourite
+    /// state (the music player heart, the track-list hearts) can refresh in sync.
+    /// </summary>
+    public event Action FavoritesChanged;
+
+    /// <summary>Raised whenever the loaded track changes, with the new playlist index.</summary>
+    public event Action<int> TrackChanged;
+
+    /// <summary>The tracks in the current playlist, ordered as the UI displays them.</summary>
+    public IReadOnlyList<MusicTrack> Tracks => playlist;
+
+    /// <summary>Index of the track currently loaded into the audio source.</summary>
+    public int CurrentTrackIndex => _currentTrackIndex;
+
+    /// <summary>Loads and immediately plays the track at the given playlist index.</summary>
+    public void PlayTrack(int index)
+    {
+        if (index < 0 || index >= playlist.Count)
+        {
+            return;
+        }
+
+        LoadTrack(index, true);
+    }
+
+    /// <summary>Whether the track at the given playlist index is favourited.</summary>
+    public bool IsFavorited(int index)
+    {
+        return _favoritedTracks.Contains(index);
+    }
+
+    /// <summary>
+    /// Sets the favourite state of a track by playlist index. This is the single
+    /// source of truth for favourites: when the affected track is the one shown on
+    /// the music player bar its heart is refreshed, and <see cref="FavoritesChanged"/>
+    /// fires so every other favourite view stays in sync.
+    /// </summary>
+    public void SetFavorite(int index, bool favorited)
+    {
+        if (index < 0 || index >= playlist.Count)
+        {
+            return;
+        }
+
+        bool changed = favorited ? _favoritedTracks.Add(index) : _favoritedTracks.Remove(index);
+        if (!changed)
+        {
+            return;
+        }
+
+        if (index == _currentTrackIndex)
+        {
+            screen.SetFavorite(favorited);
+        }
+
+        FavoritesChanged?.Invoke();
+    }
+
     private void Awake()
     {
         if (audioSource == null)
@@ -118,12 +177,18 @@ public class MusicPlayerService : MonoBehaviour
         audioSource.time = 0f;
 
         screen.SetTrack(new TrackInfo(track.title, track.artist, track.album));
+        screen.SetFavorite(_favoritedTracks.Contains(_currentTrackIndex));
 
         if (play && track.clip != null)
         {
             audioSource.Play();
             _wantsPlayback = true;
         }
+
+        // Keep the bar's play button and any track-list highlight in sync with
+        // whatever this load resulted in.
+        screen.SetPlaying(_wantsPlayback);
+        TrackChanged?.Invoke(_currentTrackIndex);
     }
 
     /// <summary>Advances to the next track, respecting shuffle mode, and plays it.</summary>
@@ -200,6 +265,8 @@ public class MusicPlayerService : MonoBehaviour
         {
             audioSource.Pause();
         }
+
+        screen.SetPlaying(_wantsPlayback);
     }
 
     private void OnNextRequested()
@@ -224,14 +291,9 @@ public class MusicPlayerService : MonoBehaviour
 
     private void OnFavoriteToggled(bool isFavorited)
     {
-        if (isFavorited)
-        {
-            _favoritedTracks.Add(_currentTrackIndex);
-        }
-        else
-        {
-            _favoritedTracks.Remove(_currentTrackIndex);
-        }
+        // Route through the shared setter so the track-list hearts and the
+        // FavoritesChanged listeners stay in sync with the bar heart.
+        SetFavorite(_currentTrackIndex, isFavorited);
     }
 
     private void OnVolumeChanged(float normalizedVolume)

@@ -1,0 +1,52 @@
+/* PlaylistsScreen — content styles only. The parchment panel frame, wings,
+   close button, scrim and open/close animation come from the shared
+   .scroll-modal* chrome in Global.uss. Rendered on the modal PanelSettings
+   (Sort Order 10) above the base game UI. All tokens come from Global.uss. */
+
+.playlists__title {
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    margin-left: var(--spacing-sm);
+    font-size: var(--font-size-xl);
+    color: var(--color-parchment-heading);
+    -unity-font-style: bold;
+}
+
+.playlists__grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-left: var(--spacing-sm);
+}
+
+.playlists__card {
+    margin-left: var(--playlists-card-gap);
+    margin-right: var(--playlists-card-gap);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.playlists__card--first {
+    margin-left: 0;
+}
+
+/* The Favourites tile is auto-populated from the player's favourited tracks, so
+   it carries a heart glyph instead of the default music notes. */
+.playlists__card--favorites .playlist-card__glyph {
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Icons/Icon_Heart.svg?fileID=7388822144124034973&guid=abc26e33b221d8249a8a0f7416902cfc&type=3#Icon_Heart");
+    -unity-background-image-tint-color: var(--color-favorite);
+}
+
+.playlists__divider {
+    width: 55%;
+    height: 2px;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-parchment-ink-muted);
+    opacity: 0.5;
+}
