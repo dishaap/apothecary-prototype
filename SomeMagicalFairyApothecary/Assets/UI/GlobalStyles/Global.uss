@@ -30,6 +30,7 @@
     --spacing-xl: 40px;
 
     /* ── Typography ── */
+    --font-primary: url("project://database/Assets/UI/Fonts/KELMSCOT%20SDF.asset?fileID=11400000&guid=b72486cd40edf95458f656f5fe4e019d&type=2#KELMSCOT SDF");
     --font-size-xs: 11px;
     --font-size-sm: 13px;
     --font-size-md: 16px;
@@ -53,4 +54,8 @@
     --mp-play-size: 46px;
     --mp-art-size: 88px;
     --mp-glyph-inset: 22%;     /* padding of the glyph inside an icon button */
+
+    /* Apply the primary font to every element. -unity-font-definition is an
+       inherited property, so declaring it on :root cascades to all text. */
+    -unity-font-definition: var(--font-primary);
 }
