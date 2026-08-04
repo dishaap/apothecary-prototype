@@ -1,0 +1,45 @@
+/* TodoButton — a small persistent HUD launcher that opens the to-do list panel.
+   Rendered on the base PanelSettings (Sort Order 0), pinned to the top-right.
+   All tokens come from Global.uss. */
+
+.todo-launcher {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.todo-launcher__btn {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    min-width: 32px;
+    min-height: 32px;
+    padding-top: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+    border-width: 0;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-accent);
+    color: var(--color-bg-deep);
+    font-size: var(--font-size-md);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    transition: scale 0.12s ease-out 0s, background-color 0.12s ease-out 0s;
+}
+
+.todo-launcher__btn:hover {
+    scale: 1.06 1.06;
+    background-color: var(--color-accent-soft);
+}
+
+.todo-launcher__btn:active {
+    scale: 0.95 0.95;
+    background-color: var(--color-accent-soft);
+}
+
+.todo-launcher__btn:focus {
+    background-color: var(--color-accent);
+}

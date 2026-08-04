@@ -38,6 +38,18 @@ public class UIManager : MonoBehaviour
         "A Cottage Morning"
     };
 
+    [Header("To-Do")]
+    [SerializeField] private TodoListScreen todoListScreen;
+
+    [Tooltip("On-screen launcher button that opens the to-do list.")]
+    [SerializeField] private TodoButtonComponent todoButton;
+
+    [Tooltip("Model that owns the player's to-do tasks and their completion state.")]
+    [SerializeField] private TodoService todoService;
+
+    [Tooltip("Heading shown at the top of the to-do list panel.")]
+    [SerializeField] private string todoListTitle = "To-Do List";
+
     // Display names for every tile, index-aligned with the playlists grid. The
     // Favourites playlist occupies index 0; the serialized names follow.
     private readonly List<string> _playlistDisplayNames = new List<string>();
@@ -45,6 +57,10 @@ public class UIManager : MonoBehaviour
     // Grid index of the playlist currently shown in the track list, or -1 when the
     // track list is closed. Used to rebuild Favourites live as favourites change.
     private int _openPlaylistIndex = -1;
+
+    // Set when the player adds a task, so the next to-do rebuild scrolls the newly
+    // added row into view at the bottom of the list.
+    private bool _scrollTodoToNewestOnRebuild;
 
     private void OnEnable()
     {
@@ -71,6 +87,25 @@ public class UIManager : MonoBehaviour
         {
             musicPlayerService.FavoritesChanged += RefreshTrackListFavorites;
             musicPlayerService.TrackChanged += OnTrackChanged;
+        }
+
+        if (todoListScreen != null)
+        {
+            todoListScreen.CloseRequested += CloseTodoList;
+            todoListScreen.TaskToggled += OnTaskToggled;
+            todoListScreen.TaskAddRequested += OnTaskAddRequested;
+            todoListScreen.TaskDeleteRequested += OnTaskDeleteRequested;
+        }
+
+        if (todoButton != null)
+        {
+            todoButton.Clicked += ToggleTodoList;
+        }
+
+        if (todoService != null)
+        {
+            todoService.TasksChanged += RefreshTodoList;
+            todoService.TasksListChanged += RefreshTodoListStructure;
         }
     }
 
@@ -100,6 +135,25 @@ public class UIManager : MonoBehaviour
             musicPlayerService.FavoritesChanged -= RefreshTrackListFavorites;
             musicPlayerService.TrackChanged -= OnTrackChanged;
         }
+
+        if (todoListScreen != null)
+        {
+            todoListScreen.CloseRequested -= CloseTodoList;
+            todoListScreen.TaskToggled -= OnTaskToggled;
+            todoListScreen.TaskAddRequested -= OnTaskAddRequested;
+            todoListScreen.TaskDeleteRequested -= OnTaskDeleteRequested;
+        }
+
+        if (todoButton != null)
+        {
+            todoButton.Clicked -= ToggleTodoList;
+        }
+
+        if (todoService != null)
+        {
+            todoService.TasksChanged -= RefreshTodoList;
+            todoService.TasksListChanged -= RefreshTodoListStructure;
+        }
     }
 
     private void Start()
@@ -124,6 +178,11 @@ public class UIManager : MonoBehaviour
         if (trackListScreen != null)
         {
             trackListScreen.Hide();
+        }
+
+        if (todoListScreen != null)
+        {
+            todoListScreen.Hide();
         }
     }
 
@@ -292,6 +351,120 @@ public class UIManager : MonoBehaviour
         {
             trackListScreen.SetFavorite(i, musicPlayerService.IsFavorited(i));
         }
+    }
+
+    /// <summary>Opens the to-do list panel, rebuilding its rows from the current tasks.</summary>
+    public void OpenTodoList()
+    {
+        if (todoListScreen == null)
+        {
+            return;
+        }
+
+        todoListScreen.SetTitle(todoListTitle);
+        todoListScreen.SetTasks(BuildTodoItems());
+        todoListScreen.Show();
+    }
+
+    /// <summary>Closes the to-do list panel.</summary>
+    public void CloseTodoList()
+    {
+        if (todoListScreen != null)
+        {
+            todoListScreen.Hide();
+        }
+    }
+
+    /// <summary>Shows the to-do list panel if hidden, hides it if shown (handy for a single toggle button).</summary>
+    public void ToggleTodoList()
+    {
+        if (todoListScreen == null)
+        {
+            return;
+        }
+
+        todoListScreen.SetTitle(todoListTitle);
+        todoListScreen.SetTasks(BuildTodoItems());
+        todoListScreen.Toggle();
+    }
+
+    /// <summary>Builds the display rows for the to-do list from the service's tasks.</summary>
+    private List<TodoItemInfo> BuildTodoItems()
+    {
+        var items = new List<TodoItemInfo>();
+        if (todoService == null)
+        {
+            return items;
+        }
+
+        IReadOnlyList<TodoTask> tasks = todoService.Tasks;
+        for (int i = 0; i < tasks.Count; i++)
+        {
+            items.Add(new TodoItemInfo(tasks[i].title, tasks[i].done));
+        }
+
+        return items;
+    }
+
+    /// <summary>Routes a row toggle into the service, the single source of task completion.</summary>
+    private void OnTaskToggled(int index, bool done)
+    {
+        if (todoService != null)
+        {
+            todoService.SetDone(index, done);
+        }
+    }
+
+    /// <summary>Routes a newly typed task into the service, which owns and persists the list.</summary>
+    private void OnTaskAddRequested(string title)
+    {
+        if (todoService != null)
+        {
+            // Flag so the follow-up rebuild scrolls the new task into view at the bottom.
+            _scrollTodoToNewestOnRebuild = true;
+            todoService.AddTask(title);
+        }
+    }
+
+    /// <summary>Routes a row's delete request into the service, which owns and persists the list.</summary>
+    private void OnTaskDeleteRequested(int index)
+    {
+        if (todoService != null)
+        {
+            todoService.RemoveTask(index);
+        }
+    }
+
+    /// <summary>Pushes the service's completion state back onto the visible rows so they stay in sync.</summary>
+    private void RefreshTodoList()
+    {
+        if (todoService == null || todoListScreen == null)
+        {
+            return;
+        }
+
+        IReadOnlyList<TodoTask> tasks = todoService.Tasks;
+        for (int i = 0; i < tasks.Count; i++)
+        {
+            todoListScreen.SetDone(i, todoService.IsDone(i));
+        }
+    }
+
+    /// <summary>
+    /// Rebuilds the whole list after a structural change (add/remove). Deferred,
+    /// since a delete fires from within the row's own click while it is being removed.
+    /// A preceding add asks the list to scroll the new task into view.
+    /// </summary>
+    private void RefreshTodoListStructure()
+    {
+        if (todoService == null || todoListScreen == null)
+        {
+            return;
+        }
+
+        bool scrollToNewest = _scrollTodoToNewestOnRebuild;
+        _scrollTodoToNewestOnRebuild = false;
+        todoListScreen.SetTasksDeferred(BuildTodoItems(), scrollToNewest);
     }
 
     /// <summary>Shows the options menu and hides the scene menu.</summary>

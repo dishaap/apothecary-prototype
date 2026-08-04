@@ -1,0 +1,101 @@
+/* TodoListScreen — content styles only. The parchment panel frame, wings, close
+   button, scrim and open/close animation come from the shared .scroll-modal*
+   chrome in Global.uss. Rows come from the TodoItem template. Rendered on the
+   modal PanelSettings (Sort Order 10). All tokens come from Global.uss. */
+
+.todo__title {
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    margin-left: var(--spacing-sm);
+    font-size: var(--font-size-xl);
+    color: var(--color-parchment-heading);
+    -unity-font-style: bold;
+}
+
+.todo__rule {
+    width: 100%;
+    height: 1px;
+    margin-bottom: var(--spacing-md);
+    background-color: var(--color-tracklist-rule);
+}
+
+.todo__scroll {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.todo__list {
+    width: 100%;
+}
+
+/* Add-task row: a text field that grows to fill and a round "+" commit button. */
+.todo__add {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-top: var(--spacing-md);
+}
+
+.todo__add-field {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-right: var(--spacing-sm);
+    font-size: var(--font-size-md);
+    border-width: 1px;
+    border-color: var(--color-tracklist-rule);
+    border-radius: var(--tracklist-row-radius);
+    background-color: var(--color-parchment-field);
+}
+
+/* Flatten the generated input so the TextField root's parchment frame shows
+   through instead of Unity's default white box. Both the container class and the
+   inner "unity-text-input" element are cleared to cover the runtime hierarchy. */
+.todo__add-field .unity-text-field__input {
+    min-height: 40px;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    border-width: 0;
+    border-radius: var(--tracklist-row-radius);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.todo__add-field #unity-text-input {
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-parchment-ink);
+    -unity-text-align: middle-left;
+}
+
+.todo__add-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 32px;
+    min-height: 32px;
+    flex-shrink: 0;
+    padding: 0;
+    border-width: 0;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-accent);
+    color: var(--color-parchment-ink);
+    font-size: var(--font-size-lg);
+    -unity-font-style: bold;
+    transition: scale 0.12s ease-out 0s, background-color 0.12s ease-out 0s;
+}
+
+.todo__add .todo__add-btn:hover {
+    background-color: var(--color-accent-soft);
+    scale: 1.06 1.06;
+}
+
+.todo__add .todo__add-btn:active {
+    scale: 0.94 0.94;
+    background-color: var(--color-accent-soft);
+}
+
+.todo__progress {
+    align-self: center;
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-parchment-ink-muted);
+}

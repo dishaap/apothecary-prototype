@@ -1,0 +1,111 @@
+/* TodoItem — reusable to-do row: a parchment container with a toggle area
+   (checkbox + label) and a delete button. The row container carries the fill and
+   hover so the two inner buttons stay transparent (no grey Unity button box). The
+   done state fills the checkbox with sage green and recedes the label. All tokens
+   come from Global.uss. */
+
+.todo-item {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    min-height: 32px;
+    height: var(--todo-item-height);
+    margin-bottom: var(--todo-item-gap);
+    border-radius: var(--tracklist-row-radius);
+    background-color: var(--color-tracklist-row);
+    transition: background-color 0.12s ease-out 0s;
+}
+
+.todo-item:hover {
+    background-color: var(--color-tracklist-row-hover);
+}
+
+/* Toggle area: fills the row, holds the checkbox + label, and is fully
+   transparent so the row container's surface shows through. */
+.todo-item__toggle {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    border-width: 0;
+    border-radius: var(--tracklist-row-radius);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.todo-item .todo-item__toggle:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.todo-item .todo-item__toggle:active {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.todo-item .todo-item__toggle:focus {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.todo-item__box {
+    width: var(--todo-check-size);
+    height: var(--todo-check-size);
+    flex-shrink: 0;
+    margin-right: var(--spacing-md);
+    border-width: 2px;
+    border-color: var(--color-parchment-ink-muted);
+    border-radius: var(--radius-sm);
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.12s ease-out 0s;
+}
+
+.todo-item__label {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: var(--font-size-md);
+    color: var(--color-parchment-ink);
+    -unity-text-align: middle-left;
+    white-space: normal;
+}
+
+/* Delete button: transparent glyph that warms to the favourite red on hover. */
+.todo-item__delete {
+    width: 36px;
+    height: 36px;
+    min-width: 32px;
+    min-height: 32px;
+    flex-shrink: 0;
+    margin-right: var(--spacing-sm);
+    padding: 0;
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: var(--font-size-lg);
+    color: var(--color-parchment-ink-muted);
+    transition: color 0.12s ease-out 0s, scale 0.12s ease-out 0s;
+}
+
+.todo-item .todo-item__delete:hover {
+    color: var(--color-favorite);
+    scale: 1.15 1.15;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.todo-item .todo-item__delete:active {
+    scale: 0.9 0.9;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+/* Done: the checkbox fills sage green and the label recedes to muted ink. */
+.todo-item--done .todo-item__box {
+    border-color: var(--color-sage-green);
+    background-color: var(--color-sage-green);
+}
+
+.todo-item--done .todo-item__label {
+    color: var(--color-parchment-ink-muted);
+}

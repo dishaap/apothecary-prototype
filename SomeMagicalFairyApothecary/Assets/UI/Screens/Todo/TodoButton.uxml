@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="/Assets/UI/GlobalStyles/Global.uss"/>
+    <Style src="/Assets/UI/Screens/Todo/TodoButton.uss"/>
+    <!-- Full-screen root ignores picking so only the corner button captures input;
+         the rest of the screen passes clicks through to the game/other UI. -->
+    <ui:VisualElement name="todo-button-root" class="todo-launcher" picking-mode="Ignore">
+        <ui:Button name="todo-button" text="To-Do" class="todo-launcher__btn"/>
+    </ui:VisualElement>
+</ui:UXML>

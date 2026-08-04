@@ -19,6 +19,7 @@
     --color-parchment-ink: #6b4a24;        /* headings on parchment */
     --color-parchment-ink-soft: #8a6b41;   /* secondary text on parchment */
     --color-parchment-ink-muted: #a98b63;  /* tertiary text on parchment */
+    --color-parchment-field: #e6d6b0; /* recessed input fill on parchment */
     --color-ivy-green: #6f8f3f;            /* active/highlight (leaves) */
     --color-sage-green: #6f8250;           /* muted sage (now-playing accent) */
     --color-favorite: #b5573f;             /* favourite heart active */
@@ -81,6 +82,11 @@
     --tracklist-num-width: 44px;
     --tracklist-thumb-size: 44px;
     --tracklist-heart-size: 34px;
+
+    /* ── To-do list tokens ── */
+    --todo-item-height: 56px;
+    --todo-item-gap: 10px;
+    --todo-check-size: 26px;
 
     /* Apply the primary font to every element. -unity-font-definition is an
        inherited property, so declaring it on :root cascades to all text. */
