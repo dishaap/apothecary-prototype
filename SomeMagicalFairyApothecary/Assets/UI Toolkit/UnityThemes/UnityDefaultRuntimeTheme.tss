@@ -1,1 +1,2 @@
+@import url("project://database/Assets/UI/GlobalStyles/Global.uss");
 @import url("unity-theme://default");

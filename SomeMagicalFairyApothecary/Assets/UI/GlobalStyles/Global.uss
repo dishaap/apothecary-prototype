@@ -1,0 +1,56 @@
+/* ============================================================
+   Global.uss — single source of truth for all design tokens.
+   All tokens are declared on :root and consumed via var().
+   Component/screen stylesheets must never redeclare these.
+   ============================================================ */
+:root {
+    /* ── Colour palette (warm, earthy, cozy) ── */
+    --color-bg-deep: #1a1a2e;
+    --color-surface: #2a2a40;
+    --color-surface-raised: #34344e;
+    --color-border: #4a4a6a;
+    --color-accent: #c8a96e;          /* warm gold */
+    --color-accent-soft: #e8c98e;
+    --color-text-primary: #f0ead6;
+    --color-text-secondary: #a09880;
+    --color-text-muted: #706858;
+
+    /* ── Parchment / ivy tokens (light UI surfaces over the 3D room) ── */
+    --color-parchment-ink: #6b4a24;        /* headings on parchment */
+    --color-parchment-ink-soft: #8a6b41;   /* secondary text on parchment */
+    --color-parchment-ink-muted: #a98b63;  /* tertiary text on parchment */
+    --color-ivy-green: #6f8f3f;            /* active/highlight (leaves) */
+    --color-favorite: #b5573f;             /* favourite heart active */
+
+    /* ── Spacing scale ── */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 40px;
+
+    /* ── Typography ── */
+    --font-size-xs: 11px;
+    --font-size-sm: 13px;
+    --font-size-md: 16px;
+    --font-size-lg: 22px;
+    --font-size-xl: 32px;
+
+    /* ── Border radii ── */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-pill: 50px;
+
+    /* ── Elevation ── */
+    --shadow-panel: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+    /* ── Music Player specific tokens ── */
+    --mp-bar-width: 800px;
+    --mp-bar-height: 156px;    /* = texture height (512px) x slice-scale (0.5) -> no vertical stretch */
+    --mp-bar-pad-x: 75px;     /* keeps content clear of the ivy corners */
+    --mp-icon-size: 36px;
+    --mp-play-size: 46px;
+    --mp-art-size: 88px;
+    --mp-glyph-inset: 22%;     /* padding of the glyph inside an icon button */
+}

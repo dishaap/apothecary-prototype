@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <!-- Reusable icon button. The concrete glyph image is assigned by a
+         modifier class in the consuming screen's stylesheet, never here. -->
+    <ui:Button name="icon-btn" class="icon-btn">
+        <ui:VisualElement name="icon-btn__glyph" class="icon-btn__glyph" picking-mode="Ignore" />
+    </ui:Button>
+</ui:UXML>
