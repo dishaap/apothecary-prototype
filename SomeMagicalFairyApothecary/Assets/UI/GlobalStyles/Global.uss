@@ -20,6 +20,7 @@
     --color-parchment-ink-soft: #8a6b41;   /* secondary text on parchment */
     --color-parchment-ink-muted: #a98b63;  /* tertiary text on parchment */
     --color-ivy-green: #6f8f3f;            /* active/highlight (leaves) */
+    --color-sage-green: #6f8250;           /* muted sage (now-playing accent) */
     --color-favorite: #b5573f;             /* favourite heart active */
 
     /* ── Spacing scale ── */
@@ -69,7 +70,112 @@
     --playlists-wings-width: 92px;
     --playlists-wings-height: 109px;       /* matches Sticker_Wings aspect (109x129) */
 
+    /* ── Track list tokens ── */
+    --color-tracklist-row: rgba(107, 74, 36, 0.06);   /* faint parchment row fill */
+    --color-tracklist-row-hover: rgba(107, 74, 36, 0.12);  /* row hover affordance */
+    --color-tracklist-row-playing: rgba(140, 158, 108, 0.32); /* muted sage now-playing highlight */
+    --color-tracklist-rule: rgba(107, 74, 36, 0.22);  /* header underline / flourish */
+    --tracklist-row-height: 62px;
+    --tracklist-row-gap: 10px;
+    --tracklist-row-radius: 16px;
+    --tracklist-num-width: 44px;
+    --tracklist-thumb-size: 44px;
+    --tracklist-heart-size: 34px;
+
     /* Apply the primary font to every element. -unity-font-definition is an
        inherited property, so declaring it on :root cascades to all text. */
     -unity-font-definition: var(--font-primary);
+}
+
+/* ============================================================
+   Shared modal-scroll chrome — the parchment scroll panel used by
+   every full-screen modal (playlists library, track listing, ...).
+   Screens add their own content classes on top of these; the frame,
+   wings, close button, scrim and open/close animation live here once.
+   ============================================================ */
+
+.scroll-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-scrim);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.28s ease-out 0s;
+}
+
+/* Closed state: fully transparent and non-interactive. visibility (unlike
+   display) keeps the element laid out, so the fade/slide transitions play on
+   open; it applies instantly on close and still blocks no pointer input. */
+.scroll-modal--hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.scroll-modal__panel {
+    width: var(--playlists-panel-width);
+    height: var(--playlists-panel-height);
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: var(--playlists-panel-pad-top);
+    padding-left: var(--playlists-panel-pad-x);
+    padding-right: var(--playlists-panel-pad-x);
+    padding-bottom: var(--playlists-panel-pad-bottom);
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Panels/PaperPanel_BG.png?fileID=21300000&guid=824edfa5333c2634e8ead8218d245836&type=3#PaperPanel_BG");
+    -unity-slice-left: 130;
+    -unity-slice-right: 130;
+    -unity-slice-top: 160;
+    -unity-slice-bottom: 130;
+    -unity-slice-scale: 0.5px;
+    translate: 0 0;
+    transition: translate 0.28s ease-out 0s;
+}
+
+/* Panel starts lower and slides up into place as the modal fades in. */
+.scroll-modal--hidden .scroll-modal__panel {
+    translate: 0 40px;
+}
+
+.scroll-modal__wings {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: var(--playlists-wings-width);
+    height: var(--playlists-wings-height);
+    rotate: 16deg;
+    background-image: url("project://database/Assets/UI/Images/Buttons/Sticker_Wings.png?fileID=21300000&guid=39f9b30023036e54a994c989af0946d0&type=3#Sticker_Wings");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.scroll-modal__close {
+    position: absolute;
+    top: -22px;
+    right: 0px;
+    width: var(--playlists-close-size);
+    height: var(--playlists-close-size);
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/UI/Images/Buttons/Button_Close_Light.png?fileID=21300000&guid=48a59ae53f1e43344bcb878a2b6542b9&type=3#Button_Close_Light");
+    -unity-background-scale-mode: scale-to-fit;
+    transition: scale 0.12s ease-out 0s;
+}
+
+.scroll-modal__panel .scroll-modal__close:hover {
+    scale: 1.08 1.08;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.scroll-modal__panel .scroll-modal__close:active {
+    scale: 0.92 0.92;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
 }

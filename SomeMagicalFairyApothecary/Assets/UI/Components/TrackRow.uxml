@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <!-- Reusable track-list row: index, thumbnail, title/artist, favourite heart.
+         The heart reuses the shared IconButton template so its favourited tint
+         matches the music player bar. Concrete text and favourite state are set
+         per instance by the screen controller. -->
+    <ui:Template name="IconButton" src="project://database/Assets/UI/Components/IconButton.uxml?fileID=9197481963319205126&amp;guid=84a2d624072e94d4586b3a63a129b7c1&amp;type=3#IconButton"/>
+    <ui:VisualElement name="track-row" class="track-row">
+        <ui:Label name="track-row__num" text="1" class="track-row__num" picking-mode="Ignore"/>
+        <ui:VisualElement name="track-row__thumb" class="track-row__thumb" picking-mode="Ignore">
+            <ui:VisualElement name="track-row__glyph" class="track-row__glyph" picking-mode="Ignore"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="track-row__meta" class="track-row__meta" picking-mode="Ignore">
+            <ui:Label name="track-row__title" text="Moonpetal" class="track-row__title" picking-mode="Ignore"/>
+            <ui:Label name="track-row__artist" text="Ron Lopata" class="track-row__artist" picking-mode="Ignore"/>
+        </ui:VisualElement>
+        <ui:Instance name="track-row__fav" template="IconButton" class="icon-btn--heart"/>
+    </ui:VisualElement>
+</ui:UXML>

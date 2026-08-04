@@ -1,0 +1,93 @@
+/* TrackRow — reusable track-list row. Layout/state live here; the concrete
+   text and favourite state are supplied by the screen controller. All values
+   come from Global.uss tokens. */
+
+.track-row {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    height: var(--tracklist-row-height);
+    margin-bottom: var(--tracklist-row-gap);
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-sm);
+    border-radius: var(--tracklist-row-radius);
+    background-color: var(--color-tracklist-row);
+    transition: background-color 0.12s ease-out 0s;
+}
+
+/* The whole row is clickable to play; brighten on hover for affordance. */
+.track-row:hover {
+    background-color: var(--color-tracklist-row-hover);
+}
+
+/* The track the player is currently on reads with an ivy-green tint. */
+.track-row--playing {
+    background-color: var(--color-tracklist-row-playing);
+}
+
+.track-row--playing .track-row__title {
+    color: var(--color-sage-green);
+}
+
+.track-row--playing .track-row__glyph {
+    -unity-background-image-tint-color: var(--color-sage-green);
+}
+
+.track-row__num {
+    width: var(--tracklist-num-width);
+    flex-shrink: 0;
+    font-size: var(--font-size-md);
+    color: var(--color-parchment-ink-muted);
+    -unity-text-align: middle-center;
+}
+
+.track-row__thumb {
+    width: var(--tracklist-thumb-size);
+    height: var(--tracklist-thumb-size);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--spacing-md);
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Small%20Containers/Container_Square.svg?fileID=7388822144124034973&guid=0a6b9e2b5eee7d44caf17813d8a8e729&type=3#Container_Square");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.track-row__glyph {
+    width: 52%;
+    height: 52%;
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-parchment-ink-muted);
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Icons/Icon_Music_Notes.svg?fileID=7388822144124034973&guid=6ea66abeef20dd14bb0e335581db4efc&type=3#Icon_Music_Notes");
+}
+
+.track-row__meta {
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.track-row__title {
+    font-size: var(--font-size-md);
+    color: var(--color-parchment-ink);
+    -unity-font-style: bold;
+}
+
+.track-row__artist {
+    font-size: var(--font-size-sm);
+    color: var(--color-parchment-ink-soft);
+}
+
+/* Heart reuses the IconButton structure; base .icon-btn styling comes from
+   IconButton.uss. Default is a muted parchment heart, favourited turns red.
+   The favourited class is declared after so it wins on the shared glyph. */
+.icon-btn--heart .icon-btn__glyph {
+    width: 52%;
+    height: 52%;
+    -unity-background-image-tint-color: var(--color-parchment-ink-muted);
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Icons/Icon_Heart.svg?fileID=7388822144124034973&guid=abc26e33b221d8249a8a0f7416902cfc&type=3#Icon_Heart");
+}
+
+.icon-btn--favorited .icon-btn__glyph {
+    -unity-background-image-tint-color: var(--color-favorite);
+}

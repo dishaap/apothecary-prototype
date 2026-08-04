@@ -1,0 +1,96 @@
+/* TrackListScreen — content styles only. The parchment panel frame, wings,
+   close button, scrim and open/close animation come from the shared
+   .scroll-modal* chrome in Global.uss. Rows come from the TrackRow template.
+   All tokens come from Global.uss. */
+
+/* Back affordance — mirrors the close button at the top-left, returning to the
+   playlists library. Text-based (no back-arrow art exists), tinted in parchment
+   ink so it reads as part of the scroll chrome. */
+.tracklist__back {
+    position: absolute;
+    top: -18px;
+    left: var(--spacing-md);
+    min-width: 32px;
+    min-height: 32px;
+    padding-top: var(--spacing-xs);
+    padding-bottom: var(--spacing-xs);
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-md);
+    margin: 0;
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-parchment-ink-soft);
+    font-size: var(--font-size-md);
+    -unity-text-align: middle-center;
+    transition: color 0.12s ease-out 0s;
+}
+
+.tracklist__back:hover {
+    color: var(--color-parchment-ink);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.tracklist__back:active {
+    color: var(--color-parchment-heading);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.tracklist__title {
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    margin-left: var(--spacing-sm);
+    font-size: var(--font-size-xl);
+    color: var(--color-parchment-heading);
+    -unity-font-style: bold;
+}
+
+.tracklist__header {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+}
+
+.tracklist__header-num {
+    width: var(--tracklist-num-width);
+    flex-shrink: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-parchment-ink-muted);
+    -unity-text-align: middle-center;
+}
+
+.tracklist__header-title {
+    font-size: var(--font-size-sm);
+    color: var(--color-parchment-ink-muted);
+}
+
+.tracklist__rule {
+    width: 100%;
+    height: 1px;
+    margin-bottom: var(--spacing-md);
+    background-color: var(--color-tracklist-rule);
+}
+
+.tracklist__scroll {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.tracklist__list {
+    width: 100%;
+}
+
+.tracklist__flourish {
+    width: 55%;
+    height: 2px;
+    align-self: center;
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-tracklist-rule);
+}

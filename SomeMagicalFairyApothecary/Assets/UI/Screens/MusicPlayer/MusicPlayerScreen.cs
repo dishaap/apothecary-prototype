@@ -143,6 +143,27 @@ public class MusicPlayerScreen : MonoBehaviour, IScreen
         _albumLabel.text = track.Album;
     }
 
+    /// <summary>
+    /// Reflects the authoritative favourite state pushed by the music service.
+    /// The heart is display-only; the service owns the favourite data.
+    /// </summary>
+    public void SetFavorite(bool isFavorited)
+    {
+        _isFavorited = isFavorited;
+        _favoriteButton.EnableInClassList(FavoritedModifierClass, isFavorited);
+    }
+
+    /// <summary>
+    /// Reflects the authoritative playback state pushed by the music service, so
+    /// the play/pause button stays in sync no matter what started playback (the
+    /// bar itself, the track list, or auto-advance).
+    /// </summary>
+    public void SetPlaying(bool isPlaying)
+    {
+        _isPlaying = isPlaying;
+        _playButton.EnableInClassList(PlayingModifierClass, isPlaying);
+    }
+
     // ── IScreen ──────────────────────────────────────────────────────────
     public void Show()
     {
@@ -171,9 +192,9 @@ public class MusicPlayerScreen : MonoBehaviour, IScreen
     // ── Event handlers ───────────────────────────────────────────────────
     private void OnPlayPauseClicked()
     {
-        _isPlaying = !_isPlaying;
-        _playButton.EnableInClassList(PlayingModifierClass, _isPlaying);
-        PlayPauseRequested?.Invoke(_isPlaying);
+        // Request the toggle; the service applies it and pushes the authoritative
+        // state back via SetPlaying so the button stays in sync with playback.
+        PlayPauseRequested?.Invoke(!_isPlaying);
     }
 
     private void OnShuffleClicked()
@@ -192,9 +213,9 @@ public class MusicPlayerScreen : MonoBehaviour, IScreen
 
     private void OnFavoriteClicked()
     {
-        _isFavorited = !_isFavorited;
-        _favoriteButton.EnableInClassList(FavoritedModifierClass, _isFavorited);
-        FavoriteToggled?.Invoke(_isFavorited);
+        // Request the toggle; the service applies it and pushes the authoritative
+        // state back via SetFavorite so the bar and track-list hearts stay in sync.
+        FavoriteToggled?.Invoke(!_isFavorited);
     }
 
     private void OnVolumeButtonClicked()
