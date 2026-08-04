@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <!-- Reusable playlist tile. The caption text is supplied per instance via
+         AttributeOverrides on "playlist-card__label"; the glyph/background come
+         from the consuming screen's stylesheet. -->
+    <ui:Button name="playlist-card" class="playlist-card">
+        <ui:VisualElement name="playlist-card__thumb" class="playlist-card__thumb" picking-mode="Ignore">
+            <ui:VisualElement name="playlist-card__glyph" class="playlist-card__glyph" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:Label name="playlist-card__label" text="Playlist" class="playlist-card__label" picking-mode="Ignore" />
+    </ui:Button>
+</ui:UXML>

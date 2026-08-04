@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="PlaylistCard" src="project://database/Assets/UI/Components/PlaylistCard.uxml?fileID=9197481963319205126&amp;guid=469aa2c1e9a8b0c4893faff216782bb9&amp;type=3#PlaylistCard"/>
+    <Style src="project://database/Assets/UI/GlobalStyles/Global.uss?fileID=7433441132597879392&amp;guid=6633a71054970e44f9125ff5c9f65a99&amp;type=3#Global"/>
+    <Style src="project://database/Assets/UI/Components/PlaylistCard.uss?fileID=7433441132597879392&amp;guid=7bc9038a1ff34084d9b13111757e621a&amp;type=3#PlaylistCard"/>
+    <Style src="project://database/Assets/UI/Screens/Playlists/PlaylistsScreen.uss?fileID=7433441132597879392&amp;guid=447f0db8c41606f499479270bd751aab&amp;type=3#PlaylistsScreen"/>
+    <ui:VisualElement name="playlists-root" class="playlists playlists--hidden">
+        <ui:VisualElement name="playlists-panel" class="playlists__panel">
+            <ui:VisualElement name="playlists-wings" class="playlists__wings" picking-mode="Ignore"/>
+            <ui:Button name="playlists-close" class="playlists__close"/>
+            <ui:Label text="Playlists" class="playlists__title"/>
+            <ui:VisualElement name="playlists-grid" class="playlists__grid">
+                <ui:Instance name="card-0" template="PlaylistCard" class="playlists__card playlists__card--first">
+                    <ui:AttributeOverrides element-name="playlist-card__label" text="Nightfall"/>
+                </ui:Instance>
+                <ui:Instance name="card-1" template="PlaylistCard" class="playlists__card">
+                    <ui:AttributeOverrides element-name="playlist-card__label" text="Dewdrops"/>
+                </ui:Instance>
+                <ui:Instance name="card-2" template="PlaylistCard" class="playlists__card">
+                    <ui:AttributeOverrides element-name="playlist-card__label" text="Wisteria"/>
+                </ui:Instance>
+                <ui:Instance name="card-3" template="PlaylistCard" class="playlists__card">
+                    <ui:AttributeOverrides element-name="playlist-card__label" text="A Cottage Morning"/>
+                </ui:Instance>
+            </ui:VisualElement>
+            <ui:VisualElement name="playlists-divider" class="playlists__divider"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -56,9 +56,13 @@ public class MusicPlayerScreen : MonoBehaviour, IScreen
     /// <summary>Raised when the normalized volume (0..1) changes.</summary>
     public event Action<float> VolumeChanged;
 
+    /// <summary>Raised when the album-art (music-notes) thumbnail is pressed to open the playlists.</summary>
+    public event Action PlaylistsRequested;
+
     private UIDocument _document;
     private VisualElement _root;
 
+    private VisualElement _artButton;
     private Button _favoriteButton;
     private Button _shuffleButton;
     private Button _previousButton;
@@ -99,6 +103,9 @@ public class MusicPlayerScreen : MonoBehaviour, IScreen
     {
         _root = _document.rootVisualElement.Q<VisualElement>("music-player-root");
 
+        // The album-art thumbnail doubles as the "open playlists" button.
+        _artButton = _root.Q<VisualElement>("mp-art");
+
         // Each control is a TemplateContainer named in the UXML; query its Button.
         _favoriteButton = _root.Q<VisualElement>("btn-favorite").Q<Button>();
         _shuffleButton = _root.Q<VisualElement>("btn-shuffle").Q<Button>();
@@ -117,6 +124,7 @@ public class MusicPlayerScreen : MonoBehaviour, IScreen
 
     private void RegisterCallbacks()
     {
+        _artButton.RegisterCallback<ClickEvent>(_ => PlaylistsRequested?.Invoke());
         _playButton.clicked += OnPlayPauseClicked;
         _nextButton.clicked += () => NextRequested?.Invoke();
         _previousButton.clicked += () => PreviousRequested?.Invoke();

@@ -49,11 +49,25 @@
     /* ── Music Player specific tokens ── */
     --mp-bar-width: 800px;
     --mp-bar-height: 156px;    /* = texture height (512px) x slice-scale (0.5) -> no vertical stretch */
-    --mp-bar-pad-x: 75px;     /* keeps content clear of the ivy corners */
+    --mp-bar-pad-x: 55px;     /* keeps content clear of the ivy corners */
     --mp-icon-size: 36px;
     --mp-play-size: 46px;
     --mp-art-size: 88px;
     --mp-glyph-inset: 22%;     /* padding of the glyph inside an icon button */
+
+    /* ── Playlists panel tokens ── */
+    --color-parchment-heading: #4c6b33;    /* green heading on parchment */
+    --color-scrim: rgba(26, 26, 46, 0.35); /* dimming behind a modal */
+    --playlists-panel-width: 900px;
+    --playlists-panel-height: 764px;       /* matches PaperPanel_BG aspect (941x798) */
+    --playlists-panel-pad-top: 96px;       /* clears the rolled top edge of the art */
+    --playlists-panel-pad-x: 74px;         /* clears the soft side edges of the art */
+    --playlists-panel-pad-bottom: 64px;    /* clears the rolled bottom edge of the art */
+    --playlists-card-size: 132px;
+    --playlists-card-gap: 28px;
+    --playlists-close-size: 60px;
+    --playlists-wings-width: 92px;
+    --playlists-wings-height: 109px;       /* matches Sticker_Wings aspect (109x129) */
 
     /* Apply the primary font to every element. -unity-font-definition is an
        inherited property, so declaring it on :root cascades to all text. */
