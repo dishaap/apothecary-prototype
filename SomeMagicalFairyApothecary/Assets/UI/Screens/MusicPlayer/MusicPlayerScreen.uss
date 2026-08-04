@@ -22,7 +22,7 @@
     justify-content: flex-start;
     padding-left: var(--mp-bar-pad-x);
     padding-right: var(--mp-bar-pad-x);
-    background-image: url("project://database/Assets/UI/Images/Music%20Player/Panels/MusicPlayerPanel.png?fileID=21300000&guid=cf28a90741a6a9a478b088752e385d23&type=3#MusicPlayerPanel");
+    background-image: url("project://database/Assets/UI/Images/Music%20Player/Panels/MusicPlayerPanel_Wide.png?fileID=21300000&guid=e758bc468fde58f45902490dbeb18954&type=3#MusicPlayerPanel_Wide");
     -unity-slice-left: 661;
     -unity-slice-right: 672;
     -unity-slice-top: 140;
