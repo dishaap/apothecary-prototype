@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - _ENABLEBOTTOMCOLOR_ON
   - _ENABLESMOOTHNESSWAVES_ON
-  - _ENABLETINTVARIATIONCOLOR_ON
   - _ENABLEWIND_ON
   m_InvalidKeywords:
   - _ENABLETINTCOLOR_ON
@@ -180,8 +179,8 @@ Material:
     - _BaseSmoothnessVColorMask: 0
     - _BaseSmoothnessWaves: 0.1
     - _BaseUVScale: 1
-    - _BottomColorContrast: 3
-    - _BottomColorOffset: 1.5
+    - _BottomColorContrast: 0.93
+    - _BottomColorOffset: 1.41
     - _BottomDitherContrast: 3
     - _BottomDitherOffset: 0
     - _BumpScale: 1
@@ -205,7 +204,7 @@ Material:
     - _EnableSmoothnessAnim: 0
     - _EnableSmoothnessWaves: 1
     - _EnableTintColor: 1
-    - _EnableTintVariationColor: 1
+    - _EnableTintVariationColor: 0
     - _EnableTopLayer: 1
     - _EnableTopLayerBlend: 1
     - _EnableTopLayerNoise: 0
@@ -256,7 +255,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _BaseAlbedoColor: {r: 1, g: 0.5176471, b: 0, a: 1}
+    - _BaseAlbedoColor: {r: 0.049547587, g: 0.4245283, b: 0, a: 1}
     - _BaseAlbedoColor1: {r: 0.8679245, g: 0.25792095, b: 0.25792095, a: 0.5019608}
     - _BaseAlbedoColor2: {r: 0.5520116, g: 0.41788515, b: 0.34191445, a: 0.5019608}
     - _BaseBottomColor: {r: 1, g: 0, b: 0, a: 0}

@@ -255,13 +255,13 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _BaseAlbedoColor: {r: 0.17036793, g: 0.3962264, b: 0.08784264, a: 1}
+    - _BaseAlbedoColor: {r: 0.53443444, g: 0.6320754, b: 0.08646317, a: 1}
     - _BaseAlbedoColor1: {r: 0.8679245, g: 0.25792095, b: 0.25792095, a: 0.5019608}
     - _BaseAlbedoColor2: {r: 0.5520116, g: 0.41788515, b: 0.34191445, a: 0.5019608}
     - _BaseBottomColor: {r: 1, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseEmissiveColor: {r: 0, g: 0, b: 0, a: 1}
-    - _BottomColor: {r: 0.20784314, g: 0.5019608, b: 0.07450981, a: 0}
+    - _BottomColor: {r: 0.49056602, g: 0.42765725, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor: {r: 0.6037736, g: 0.5754763, b: 0.16233535, a: 0}
