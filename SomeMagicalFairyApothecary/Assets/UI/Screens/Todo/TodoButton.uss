@@ -10,36 +10,10 @@
     bottom: 0;
 }
 
+/* Positioning only — the banner background, sizing and hover/active states come
+   from the shared .btn-banner class in Global.uss. */
 .todo-launcher__btn {
     position: absolute;
     top: var(--spacing-lg);
     right: var(--spacing-lg);
-    min-width: 32px;
-    min-height: 32px;
-    padding-top: var(--spacing-sm);
-    padding-bottom: var(--spacing-sm);
-    padding-left: var(--spacing-lg);
-    padding-right: var(--spacing-lg);
-    border-width: 0;
-    border-radius: var(--radius-pill);
-    background-color: var(--color-accent);
-    color: var(--color-bg-deep);
-    font-size: var(--font-size-md);
-    -unity-font-style: bold;
-    -unity-text-align: middle-center;
-    transition: scale 0.12s ease-out 0s, background-color 0.12s ease-out 0s;
-}
-
-.todo-launcher__btn:hover {
-    scale: 1.06 1.06;
-    background-color: var(--color-accent-soft);
-}
-
-.todo-launcher__btn:active {
-    scale: 0.95 0.95;
-    background-color: var(--color-accent-soft);
-}
-
-.todo-launcher__btn:focus {
-    background-color: var(--color-accent);
 }

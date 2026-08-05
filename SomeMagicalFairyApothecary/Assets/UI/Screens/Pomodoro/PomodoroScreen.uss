@@ -1,0 +1,135 @@
+/* PomodoroScreen — content styles only. The parchment panel frame, wings, close
+   button, scrim and open/close animation come from the shared .scroll-modal*
+   chrome in Global.uss. Rendered on the modal PanelSettings (Sort Order 10).
+   All tokens come from Global.uss. */
+
+.pomodoro__title {
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    margin-left: var(--spacing-sm);
+    font-size: var(--font-size-xl);
+    color: var(--color-parchment-heading);
+    -unity-font-style: bold;
+}
+
+.pomodoro__rule {
+    width: 100%;
+    height: 1px;
+    margin-bottom: var(--spacing-md);
+    background-color: var(--color-tracklist-rule);
+}
+
+/* Fills the remaining panel height and centres the timer stack. */
+.pomodoro__content {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.pomodoro__phase {
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-lg);
+    letter-spacing: 4px;
+    color: var(--color-pomodoro-focus);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.pomodoro__time {
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--pomodoro-time-size);
+    color: var(--color-parchment-ink);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+/* Progress track: a rounded parchment channel with a coloured fill inside. The
+   fill carries its own pill radius, so the track needs no overflow clipping. */
+.pomodoro__progress {
+    width: var(--pomodoro-progress-width);
+    height: var(--pomodoro-progress-height);
+    margin-bottom: var(--spacing-lg);
+    background-color: var(--color-parchment-field);
+    border-width: 1px;
+    border-color: var(--color-tracklist-rule);
+    border-radius: var(--radius-pill);
+}
+
+.pomodoro__progress-fill {
+    width: 0;
+    height: 100%;
+    background-color: var(--color-pomodoro-focus);
+    border-radius: var(--radius-pill);
+    transition: width 0.4s ease-out 0s;
+}
+
+/* Break tint: recolour the phase caption and progress fill when resting. */
+.pomodoro-panel--break .pomodoro__phase {
+    color: var(--color-pomodoro-break);
+}
+
+.pomodoro-panel--break .pomodoro__progress-fill {
+    background-color: var(--color-pomodoro-break);
+}
+
+.pomodoro__controls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* The banner background, 9-slice and hover/active come from the shared .btn-banner
+   class in Global.uss. Here we only add the spacing between the three buttons. */
+.pomodoro__btn {
+    margin-left: var(--spacing-sm);
+    margin-right: var(--spacing-sm);
+}
+
+/* All three buttons share the banner art; the play/pause button tints sage while running. */
+.pomodoro__controls .pomodoro__btn--primary.pomodoro__toggle--running {
+    -unity-background-image-tint-color: var(--color-sage-green);
+    color: var(--color-text-primary);
+}
+
+.pomodoro__settings {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.pomodoro__dropdown {
+    min-width: 160px;
+    margin-left: var(--spacing-md);
+    margin-right: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-parchment-ink);
+}
+
+.pomodoro__dropdown .unity-base-field__label {
+    color: var(--color-parchment-ink-soft);
+    -unity-font-style: bold;
+}
+
+.pomodoro__dropdown .unity-base-popup-field__input {
+    border-width: 1px;
+    border-color: var(--color-tracklist-rule);
+    border-radius: var(--tracklist-row-radius);
+    background-color: var(--color-parchment-field);
+    color: var(--color-parchment-ink);
+}
+
+.pomodoro__dropdown .unity-popup-field__input {
+    border-width: 1px;
+    border-color: var(--color-tracklist-rule);
+    border-radius: var(--tracklist-row-radius);
+    background-color: var(--color-parchment-field);
+    color: var(--color-parchment-ink);
+}
+
+.pomodoro__dropdown .unity-base-popup-field__text {
+    color: var(--color-parchment-ink);
+    -unity-text-align: middle-left;
+}

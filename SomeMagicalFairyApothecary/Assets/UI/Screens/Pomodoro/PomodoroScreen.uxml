@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="/Assets/UI/GlobalStyles/Global.uss"/>
+    <Style src="/Assets/UI/Screens/Pomodoro/PomodoroScreen.uss"/>
+    <ui:VisualElement name="pomodoro-root" class="scroll-modal scroll-modal--hidden">
+        <ui:VisualElement name="pomodoro-panel" class="scroll-modal__panel">
+            <ui:VisualElement name="pomodoro-wings" class="scroll-modal__wings" picking-mode="Ignore"/>
+            <ui:Button name="pomodoro-close" class="scroll-modal__close"/>
+            <ui:Label name="pomodoro-title" text="Pomodoro" class="pomodoro__title"/>
+            <ui:VisualElement name="pomodoro-rule" class="pomodoro__rule" picking-mode="Ignore"/>
+            <ui:VisualElement name="pomodoro-content" class="pomodoro__content">
+                <ui:Label name="pomodoro-phase" text="Focus" class="pomodoro__phase"/>
+                <ui:Label name="pomodoro-time" text="25:00" class="pomodoro__time"/>
+                <ui:VisualElement name="pomodoro-progress" class="pomodoro__progress" picking-mode="Ignore">
+                    <ui:VisualElement name="pomodoro-progress-fill" class="pomodoro__progress-fill" picking-mode="Ignore"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="pomodoro-controls" class="pomodoro__controls">
+                    <ui:Button name="pomodoro-toggle" text="Start" class="btn-banner pomodoro__btn pomodoro__btn--primary"/>
+                    <ui:Button name="pomodoro-reset" text="Reset" class="btn-banner pomodoro__btn"/>
+                    <ui:Button name="pomodoro-skip" text="Skip" class="btn-banner pomodoro__btn"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="pomodoro-settings" class="pomodoro__settings">
+                    <ui:DropdownField name="pomodoro-focus" label="Focus (min)" choices="15,25,30,45" index="1" class="pomodoro__dropdown"/>
+                    <ui:DropdownField name="pomodoro-break" label="Break (min)" choices="5,10,15" index="0" class="pomodoro__dropdown"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -88,6 +88,14 @@
     --todo-item-gap: 10px;
     --todo-check-size: 26px;
 
+    /* ── Pomodoro timer tokens ── */
+    --color-pomodoro-focus: #6f8f3f;       /* ivy-green fill during a focus sprint */
+    --color-pomodoro-break: #c8a96e;       /* warm gold fill during a break */
+    --pomodoro-time-size: 96px;            /* the big mm:ss countdown */
+    --pomodoro-progress-width: 62%;        /* progress track width within the panel */
+    --pomodoro-progress-height: 14px;
+    --pomodoro-launcher-top: 92px;         /* stacks the launcher below the To-Do button */
+
     /* Apply the primary font to every element. -unity-font-definition is an
        inherited property, so declaring it on :root cascades to all text. */
     -unity-font-definition: var(--font-primary);
@@ -182,6 +190,62 @@
 
 .scroll-modal__panel .scroll-modal__close:active {
     scale: 0.92 0.92;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+/* ============================================================
+   Shared banner button — the sliced Button_Default parchment banner
+   used by every cozy button (timer controls, HUD launchers, ...).
+   Width is left to auto so the banner grows/shrinks with the label;
+   the 9-slice keeps the ornate ends crisp while the flat middle
+   stretches. Horizontal padding keeps text clear of the corners.
+   Consumers add only their own layout (margins / absolute position).
+   ============================================================ */
+.btn-banner {
+    min-width: 120px;
+    min-height: 56px;
+    padding-top: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    padding-left: var(--spacing-xl);
+    padding-right: var(--spacing-xl);
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/UI/Images/Buttons/Button_Default.png?fileID=21300000&guid=22180a37916754d48bf809b538dc6751&type=3#Button_Default");
+    -unity-slice-left: 110;
+    -unity-slice-right: 110;
+    -unity-slice-top: 70;
+    -unity-slice-bottom: 70;
+    -unity-slice-scale: 0.32px;
+    color: var(--color-parchment-ink);
+    font-size: var(--font-size-md);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    transition: scale 0.12s ease-out 0s, -unity-background-image-tint-color 0.12s ease-out 0s;
+}
+
+/* Keep the banner background transparent in every interaction state so Unity's
+   default Button theme can't paint its grey box behind the art. The theme uses
+   .unity-button:hover:enabled etc., so these must be at least as specific — hence
+   the .unity-button qualifier plus :enabled — to win the cascade. */
+.unity-button.btn-banner:hover:enabled {
+    scale: 1.05 1.05;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.unity-button.btn-banner:active:enabled {
+    scale: 0.95 0.95;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.unity-button.btn-banner:focus:enabled {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.unity-button.btn-banner:hover:focus:enabled {
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
 }

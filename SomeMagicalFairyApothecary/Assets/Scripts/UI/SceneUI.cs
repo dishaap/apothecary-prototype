@@ -50,6 +50,15 @@ public class UIManager : MonoBehaviour
     [Tooltip("Heading shown at the top of the to-do list panel.")]
     [SerializeField] private string todoListTitle = "To-Do List";
 
+    [Header("Pomodoro")]
+    [SerializeField] private PomodoroScreen pomodoroScreen;
+
+    [Tooltip("On-screen launcher button that opens the Pomodoro timer.")]
+    [SerializeField] private PomodoroButtonComponent pomodoroButton;
+
+    [Tooltip("Model that runs the Pomodoro countdown and owns its phase/duration state.")]
+    [SerializeField] private PomodoroService pomodoroService;
+
     // Display names for every tile, index-aligned with the playlists grid. The
     // Favourites playlist occupies index 0; the serialized names follow.
     private readonly List<string> _playlistDisplayNames = new List<string>();
@@ -107,6 +116,28 @@ public class UIManager : MonoBehaviour
             todoService.TasksChanged += RefreshTodoList;
             todoService.TasksListChanged += RefreshTodoListStructure;
         }
+
+        if (pomodoroScreen != null)
+        {
+            pomodoroScreen.CloseRequested += ClosePomodoro;
+            pomodoroScreen.PlayPauseRequested += OnPomodoroPlayPause;
+            pomodoroScreen.ResetRequested += OnPomodoroReset;
+            pomodoroScreen.SkipRequested += OnPomodoroSkip;
+            pomodoroScreen.FocusMinutesRequested += OnPomodoroFocusMinutes;
+            pomodoroScreen.BreakMinutesRequested += OnPomodoroBreakMinutes;
+        }
+
+        if (pomodoroButton != null)
+        {
+            pomodoroButton.Clicked += TogglePomodoro;
+        }
+
+        if (pomodoroService != null)
+        {
+            pomodoroService.OnTickChanged += OnPomodoroTick;
+            pomodoroService.OnPhaseChanged += OnPomodoroPhaseChanged;
+            pomodoroService.OnRunningChanged += OnPomodoroRunningChanged;
+        }
     }
 
     private void OnDisable()
@@ -154,6 +185,28 @@ public class UIManager : MonoBehaviour
             todoService.TasksChanged -= RefreshTodoList;
             todoService.TasksListChanged -= RefreshTodoListStructure;
         }
+
+        if (pomodoroScreen != null)
+        {
+            pomodoroScreen.CloseRequested -= ClosePomodoro;
+            pomodoroScreen.PlayPauseRequested -= OnPomodoroPlayPause;
+            pomodoroScreen.ResetRequested -= OnPomodoroReset;
+            pomodoroScreen.SkipRequested -= OnPomodoroSkip;
+            pomodoroScreen.FocusMinutesRequested -= OnPomodoroFocusMinutes;
+            pomodoroScreen.BreakMinutesRequested -= OnPomodoroBreakMinutes;
+        }
+
+        if (pomodoroButton != null)
+        {
+            pomodoroButton.Clicked -= TogglePomodoro;
+        }
+
+        if (pomodoroService != null)
+        {
+            pomodoroService.OnTickChanged -= OnPomodoroTick;
+            pomodoroService.OnPhaseChanged -= OnPomodoroPhaseChanged;
+            pomodoroService.OnRunningChanged -= OnPomodoroRunningChanged;
+        }
     }
 
     private void Start()
@@ -183,6 +236,11 @@ public class UIManager : MonoBehaviour
         if (todoListScreen != null)
         {
             todoListScreen.Hide();
+        }
+
+        if (pomodoroScreen != null)
+        {
+            pomodoroScreen.Hide();
         }
     }
 
@@ -465,6 +523,132 @@ public class UIManager : MonoBehaviour
         bool scrollToNewest = _scrollTodoToNewestOnRebuild;
         _scrollTodoToNewestOnRebuild = false;
         todoListScreen.SetTasksDeferred(BuildTodoItems(), scrollToNewest);
+    }
+
+    /// <summary>Opens the Pomodoro timer panel, syncing it to the service's current state first.</summary>
+    public void OpenPomodoro()
+    {
+        if (pomodoroScreen == null)
+        {
+            return;
+        }
+
+        PushPomodoroState();
+        pomodoroScreen.Show();
+    }
+
+    /// <summary>Closes the Pomodoro timer panel (the countdown keeps running in the background).</summary>
+    public void ClosePomodoro()
+    {
+        if (pomodoroScreen != null)
+        {
+            pomodoroScreen.Hide();
+        }
+    }
+
+    /// <summary>Shows the Pomodoro panel if hidden, hides it if shown (for the single launcher button).</summary>
+    public void TogglePomodoro()
+    {
+        if (pomodoroScreen == null)
+        {
+            return;
+        }
+
+        PushPomodoroState();
+        pomodoroScreen.Toggle();
+    }
+
+    /// <summary>Pushes the full current timer state (phase, time, progress, running, durations) onto the panel.</summary>
+    private void PushPomodoroState()
+    {
+        if (pomodoroService == null || pomodoroScreen == null)
+        {
+            return;
+        }
+
+        pomodoroScreen.SetDurations(pomodoroService.FocusMinutes, pomodoroService.BreakMinutes);
+        pomodoroScreen.SetPhase(pomodoroService.Phase);
+        pomodoroScreen.SetTimeSeconds(pomodoroService.SecondsRemaining);
+        pomodoroScreen.SetProgress(pomodoroService.Progress);
+        pomodoroScreen.SetRunning(pomodoroService.IsRunning);
+    }
+
+    /// <summary>Routes the play/pause button into the service, the single source of the countdown.</summary>
+    private void OnPomodoroPlayPause()
+    {
+        if (pomodoroService != null)
+        {
+            pomodoroService.TogglePlay();
+        }
+    }
+
+    /// <summary>Routes the reset button into the service.</summary>
+    private void OnPomodoroReset()
+    {
+        if (pomodoroService != null)
+        {
+            pomodoroService.Reset();
+        }
+    }
+
+    /// <summary>Routes the skip button into the service.</summary>
+    private void OnPomodoroSkip()
+    {
+        if (pomodoroService != null)
+        {
+            pomodoroService.Skip();
+        }
+    }
+
+    /// <summary>Routes a new focus length into the service.</summary>
+    private void OnPomodoroFocusMinutes(int minutes)
+    {
+        if (pomodoroService != null)
+        {
+            pomodoroService.SetFocusMinutes(minutes);
+        }
+    }
+
+    /// <summary>Routes a new break length into the service.</summary>
+    private void OnPomodoroBreakMinutes(int minutes)
+    {
+        if (pomodoroService != null)
+        {
+            pomodoroService.SetBreakMinutes(minutes);
+        }
+    }
+
+    /// <summary>Pushes each tick's remaining time and progress onto the panel.</summary>
+    private void OnPomodoroTick(int secondsRemaining)
+    {
+        if (pomodoroScreen == null)
+        {
+            return;
+        }
+
+        pomodoroScreen.SetTimeSeconds(secondsRemaining);
+        if (pomodoroService != null)
+        {
+            pomodoroScreen.SetProgress(pomodoroService.Progress);
+        }
+    }
+
+    /// <summary>Reflects a phase switch on the panel.</summary>
+    private void OnPomodoroPhaseChanged(PomodoroPhase phase)
+    {
+        if (pomodoroScreen != null)
+        {
+            pomodoroScreen.SetPhase(phase);
+        }
+    }
+
+    /// <summary>Reflects the running/paused state on the panel's play/pause button.</summary>
+    private void OnPomodoroRunningChanged(bool running)
+    {
+        if (pomodoroScreen != null)
+        {
+            pomodoroScreen.SetRunning(running);
+        }
     }
 
     /// <summary>Shows the options menu and hides the scene menu.</summary>

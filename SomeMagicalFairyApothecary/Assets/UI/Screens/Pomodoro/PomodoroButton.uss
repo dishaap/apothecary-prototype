@@ -1,0 +1,19 @@
+/* PomodoroButton — a small persistent HUD launcher that opens the Pomodoro
+   timer. Rendered on the base PanelSettings (Sort Order 0), pinned to the
+   top-right and stacked just below the To-Do launcher. Tokens from Global.uss. */
+
+.pomodoro-launcher {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Positioning only — the banner background, sizing and hover/active states come
+   from the shared .btn-banner class in Global.uss. */
+.pomodoro-launcher__btn {
+    position: absolute;
+    top: var(--pomodoro-launcher-top);
+    right: var(--spacing-lg);
+}
