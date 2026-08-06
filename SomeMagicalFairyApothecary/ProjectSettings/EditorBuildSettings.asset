@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ApothecaryScene.unity
     guid: d29e60053a87450459da69ad094d89d0
   - enabled: 0
-    path: Assets/Scenes/ApartmentScene.unity
+    path: Assets/Scenes/ApartmentSceneMeadowDay.unity
     guid: 0f0a8a73c0fc44b4e9e85e2d798940da
   - enabled: 0
     path: Assets/Scenes/StartMenu.unity
